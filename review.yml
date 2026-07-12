@@ -1,0 +1,110 @@
+aid: qase
+name: Qase
+review:
+  question: Does Qase expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Qase's public developer surface (the
+    TestOps API v1 and v2) is request/response REST over HTTPS. There is no
+    server-push transport (WebSocket or SSE) documented on Qase's own API to
+    model. Qase does support outbound webhooks and CI/automation reporters that
+    POST results to the REST API, but those are ordinary server-to-endpoint HTTP
+    or client-initiated REST calls, not a bidirectional streaming channel.
+findings:
+  summary: |
+    Qase does not publish a documented public WebSocket API. Qase is a cloud
+    test management (TestOps) platform. Its public API is the TestOps API,
+    served at base https://api.qase.io/v1 (v1) with a newer v2 also published,
+    authenticated with an API token passed in the `Token` header. Every
+    documented endpoint is request/response REST over HTTPS. Results from CI and
+    automated tests are published by POSTing to the REST results endpoints
+    (including a bulk endpoint); Qase also offers outbound webhooks for event
+    notifications. No realtime, bidirectional, or streaming WebSocket
+    (ws:// or wss://) endpoint is documented on Qase's own API as of the review
+    date.
+  openSource: |
+    Qase the platform is a commercial SaaS (not open source), but Qase publishes
+    its API specification and tooling openly on GitHub under the qase-tms
+    organization: the OpenAPI source specification (qase-tms/specs), pre-generated
+    API clients for PHP, Python, JavaScript/TypeScript, Java, and Go, and a large
+    set of open-source test framework reporters (Playwright, Cypress, Jest, PyTest,
+    JUnit, and more) that publish results to the REST API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.qase.io/v1
+      documented: true
+      note: TestOps API v1. A v2 API is also published under the same host.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Outbound event webhooks POST to a configured HTTP endpoint. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Qase's API reference or developer docs as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api.qase.io/v1/project
+    - POST   https://api.qase.io/v1/project
+    - GET    https://api.qase.io/v1/project/{code}
+    - DELETE https://api.qase.io/v1/project/{code}
+    - GET    https://api.qase.io/v1/case/{code}
+    - POST   https://api.qase.io/v1/case/{code}
+    - GET    https://api.qase.io/v1/case/{code}/{id}
+    - PATCH  https://api.qase.io/v1/case/{code}/{id}
+    - DELETE https://api.qase.io/v1/case/{code}/{id}
+    - GET    https://api.qase.io/v1/suite/{code}
+    - POST   https://api.qase.io/v1/suite/{code}
+    - GET    https://api.qase.io/v1/suite/{code}/{id}
+    - PATCH  https://api.qase.io/v1/suite/{code}/{id}
+    - DELETE https://api.qase.io/v1/suite/{code}/{id}
+    - GET    https://api.qase.io/v1/run/{code}
+    - POST   https://api.qase.io/v1/run/{code}
+    - GET    https://api.qase.io/v1/run/{code}/{id}
+    - PATCH  https://api.qase.io/v1/run/{code}/{id}
+    - DELETE https://api.qase.io/v1/run/{code}/{id}
+    - POST   https://api.qase.io/v1/run/{code}/{id}/complete
+    - PATCH  https://api.qase.io/v1/run/{code}/{id}/public
+    - GET    https://api.qase.io/v1/result/{code}
+    - GET    https://api.qase.io/v1/result/{code}/{hash}
+    - POST   https://api.qase.io/v1/result/{code}/{id}
+    - POST   https://api.qase.io/v1/result/{code}/{id}/bulk
+    - PATCH  https://api.qase.io/v1/result/{code}/{id}/{hash}
+    - DELETE https://api.qase.io/v1/result/{code}/{id}/{hash}
+    - GET    https://api.qase.io/v1/defect/{code}
+    - GET    https://api.qase.io/v1/defect/{code}/{id}
+    - DELETE https://api.qase.io/v1/defect/{code}/{id}
+    - PATCH  https://api.qase.io/v1/defect/{code}/resolve/{id}
+    - PATCH  https://api.qase.io/v1/defect/{code}/status/{id}
+    - GET    https://api.qase.io/v1/plan/{code}
+    - POST   https://api.qase.io/v1/plan/{code}
+    - GET    https://api.qase.io/v1/plan/{code}/{id}
+    - PATCH  https://api.qase.io/v1/plan/{code}/{id}
+    - DELETE https://api.qase.io/v1/plan/{code}/{id}
+sources:
+  - url: https://developers.qase.io/reference/introduction-to-the-qase-api
+    type: Documentation
+    note: API base, Token header auth, rate limits; all REST. No WebSocket mentioned.
+  - url: https://developers.qase.io/reference/get-runs
+    type: APIReference
+    note: Test run endpoints under /run/{code}; REST only.
+  - url: https://developers.qase.io/reference/create-result
+    type: APIReference
+    note: Test result creation under /result/{code}/{id}; REST only.
+  - url: https://github.com/qase-tms/specs
+    type: SourceCode
+    note: Public OpenAPI source specification for the TestOps API (v1 and v2).
+  - url: https://qase.io/pricing/
+    type: Pricing
+    note: Published per-user tiers including a free tier; API access on all plans.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Qase's own public API is
+    request/response REST (TestOps API v1/v2) plus outbound webhooks. No
+    AsyncAPI document was created because there is no server-push transport on
+    Qase's own API to model.

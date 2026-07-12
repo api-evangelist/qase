@@ -1,0 +1,205 @@
+{
+  "info": {
+    "name": "Qase TestOps API v1",
+    "description": "Token-authenticated REST API for the Qase test management (TestOps) platform. Base URL: https://api.qase.io/v1. Pass your API token in the `Token` header on every request. Source specification: github.com/qase-tms/specs. Docs: developers.qase.io.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "in", "value": "header", "type": "string" },
+      { "key": "key", "value": "Token", "type": "string" },
+      { "key": "value", "value": "{{apiToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.qase.io/v1", "type": "string" },
+    { "key": "apiToken", "value": "", "type": "string" },
+    { "key": "code", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get all projects",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/project", "host": ["{{baseUrl}}"], "path": ["project"] }, "description": "Retrieves all projects available to the authenticated user." }
+        },
+        {
+          "name": "Create a new project",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"title\": \"My Project\",\n  \"code\": \"MP\"\n}" }, "url": { "raw": "{{baseUrl}}/project", "host": ["{{baseUrl}}"], "path": ["project"] }, "description": "Creates a new project." }
+        },
+        {
+          "name": "Get a specific project",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/project/:code", "host": ["{{baseUrl}}"], "path": ["project", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Retrieves a specific project by code." }
+        },
+        {
+          "name": "Delete a specific project",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/project/:code", "host": ["{{baseUrl}}"], "path": ["project", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Deletes a specific project by code." }
+        }
+      ]
+    },
+    {
+      "name": "Test Cases",
+      "item": [
+        {
+          "name": "Get all test cases",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/case/:code", "host": ["{{baseUrl}}"], "path": ["case", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Retrieves all test cases stored in the selected project." }
+        },
+        {
+          "name": "Create a new test case",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"title\": \"Login works\"\n}" }, "url": { "raw": "{{baseUrl}}/case/:code", "host": ["{{baseUrl}}"], "path": ["case", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Creates a test case in the selected project." }
+        },
+        {
+          "name": "Get a specific test case",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/case/:code/:id", "host": ["{{baseUrl}}"], "path": ["case", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Retrieves a specific test case by id." }
+        },
+        {
+          "name": "Update a specific test case",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{}" }, "url": { "raw": "{{baseUrl}}/case/:code/:id", "host": ["{{baseUrl}}"], "path": ["case", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Updates a specific test case by id." }
+        },
+        {
+          "name": "Delete a specific test case",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/case/:code/:id", "host": ["{{baseUrl}}"], "path": ["case", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Deletes a specific test case by id." }
+        }
+      ]
+    },
+    {
+      "name": "Test Suites",
+      "item": [
+        {
+          "name": "Get all test suites",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/suite/:code", "host": ["{{baseUrl}}"], "path": ["suite", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Retrieves all test suites stored in the selected project." }
+        },
+        {
+          "name": "Create a new test suite",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"title\": \"Regression\"\n}" }, "url": { "raw": "{{baseUrl}}/suite/:code", "host": ["{{baseUrl}}"], "path": ["suite", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Creates a test suite in the selected project." }
+        },
+        {
+          "name": "Get a specific test suite",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/suite/:code/:id", "host": ["{{baseUrl}}"], "path": ["suite", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Retrieves a specific test suite by id." }
+        },
+        {
+          "name": "Update a specific test suite",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{}" }, "url": { "raw": "{{baseUrl}}/suite/:code/:id", "host": ["{{baseUrl}}"], "path": ["suite", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Updates a specific test suite by id." }
+        },
+        {
+          "name": "Delete a specific test suite",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/suite/:code/:id", "host": ["{{baseUrl}}"], "path": ["suite", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Deletes a specific test suite by id." }
+        }
+      ]
+    },
+    {
+      "name": "Test Runs",
+      "item": [
+        {
+          "name": "Get all test runs",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/run/:code?status=in_progress", "host": ["{{baseUrl}}"], "path": ["run", ":code"], "query": [{ "key": "status", "value": "in_progress" }], "variable": [{ "key": "code", "value": "" }] }, "description": "Retrieves all test runs stored in the selected project." }
+        },
+        {
+          "name": "Create a new test run",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"title\": \"Nightly run\",\n  \"cases\": [1, 2, 3]\n}" }, "url": { "raw": "{{baseUrl}}/run/:code", "host": ["{{baseUrl}}"], "path": ["run", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Creates a test run in the selected project." }
+        },
+        {
+          "name": "Get a specific test run",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/run/:code/:id", "host": ["{{baseUrl}}"], "path": ["run", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Retrieves a specific test run by id." }
+        },
+        {
+          "name": "Update a specific test run",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{}" }, "url": { "raw": "{{baseUrl}}/run/:code/:id", "host": ["{{baseUrl}}"], "path": ["run", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Updates a specific test run by id." }
+        },
+        {
+          "name": "Delete a specific test run",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/run/:code/:id", "host": ["{{baseUrl}}"], "path": ["run", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Completely deletes a test run from the repository." }
+        },
+        {
+          "name": "Complete a specific test run",
+          "request": { "method": "POST", "header": [], "url": { "raw": "{{baseUrl}}/run/:code/:id/complete", "host": ["{{baseUrl}}"], "path": ["run", ":code", ":id", "complete"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Marks a specific test run as complete." }
+        },
+        {
+          "name": "Update a test run publicity",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"status\": true\n}" }, "url": { "raw": "{{baseUrl}}/run/:code/:id/public", "host": ["{{baseUrl}}"], "path": ["run", ":code", ":id", "public"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Enables or disables a public shareable report link for a test run." }
+        }
+      ]
+    },
+    {
+      "name": "Test Results",
+      "item": [
+        {
+          "name": "Get all test run results",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/result/:code?run=1", "host": ["{{baseUrl}}"], "path": ["result", ":code"], "query": [{ "key": "run", "value": "1" }], "variable": [{ "key": "code", "value": "" }] }, "description": "Retrieves all test run results stored in the selected project." }
+        },
+        {
+          "name": "Get a specific test run result",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/result/:code/:hash", "host": ["{{baseUrl}}"], "path": ["result", ":code", ":hash"], "variable": [{ "key": "code", "value": "" }, { "key": "hash", "value": "" }] }, "description": "Retrieves a specific test run result by hash." }
+        },
+        {
+          "name": "Create a test run result",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"case_id\": 1,\n  \"status\": \"passed\"\n}" }, "url": { "raw": "{{baseUrl}}/result/:code/:id", "host": ["{{baseUrl}}"], "path": ["result", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Creates a test run result for the given run id." }
+        },
+        {
+          "name": "Bulk create test run results",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"results\": [\n    { \"case_id\": 1, \"status\": \"passed\" },\n    { \"case_id\": 2, \"status\": \"failed\" }\n  ]\n}" }, "url": { "raw": "{{baseUrl}}/result/:code/:id/bulk", "host": ["{{baseUrl}}"], "path": ["result", ":code", ":id", "bulk"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Creates multiple test run results for the given run id in a single request. Used by automation reporters to publish CI results in bulk." }
+        },
+        {
+          "name": "Update a test run result",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{}" }, "url": { "raw": "{{baseUrl}}/result/:code/:id/:hash", "host": ["{{baseUrl}}"], "path": ["result", ":code", ":id", ":hash"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }, { "key": "hash", "value": "" }] }, "description": "Updates an existing test run result identified by run id and hash." }
+        },
+        {
+          "name": "Delete a test run result",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/result/:code/:id/:hash", "host": ["{{baseUrl}}"], "path": ["result", ":code", ":id", ":hash"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }, { "key": "hash", "value": "" }] }, "description": "Deletes a test run result identified by run id and hash." }
+        }
+      ]
+    },
+    {
+      "name": "Defects",
+      "item": [
+        {
+          "name": "Get all defects",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/defect/:code?status=open", "host": ["{{baseUrl}}"], "path": ["defect", ":code"], "query": [{ "key": "status", "value": "open" }], "variable": [{ "key": "code", "value": "" }] }, "description": "Retrieves all defects stored in the selected project." }
+        },
+        {
+          "name": "Get a specific defect",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/defect/:code/:id", "host": ["{{baseUrl}}"], "path": ["defect", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Retrieves a specific defect by id." }
+        },
+        {
+          "name": "Delete a specific defect",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/defect/:code/:id", "host": ["{{baseUrl}}"], "path": ["defect", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Deletes a specific defect by id." }
+        },
+        {
+          "name": "Resolve a specific defect",
+          "request": { "method": "PATCH", "header": [], "url": { "raw": "{{baseUrl}}/defect/:code/resolve/:id", "host": ["{{baseUrl}}"], "path": ["defect", ":code", "resolve", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Marks a specific defect as resolved." }
+        },
+        {
+          "name": "Update a defect status",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"status\": \"in_progress\"\n}" }, "url": { "raw": "{{baseUrl}}/defect/:code/status/:id", "host": ["{{baseUrl}}"], "path": ["defect", ":code", "status", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Updates the status of a specific defect." }
+        }
+      ]
+    },
+    {
+      "name": "Test Plans",
+      "item": [
+        {
+          "name": "Get all test plans",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/plan/:code", "host": ["{{baseUrl}}"], "path": ["plan", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Retrieves all test plans stored in the selected project." }
+        },
+        {
+          "name": "Create a new test plan",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"title\": \"Smoke plan\",\n  \"cases\": [1, 2, 3]\n}" }, "url": { "raw": "{{baseUrl}}/plan/:code", "host": ["{{baseUrl}}"], "path": ["plan", ":code"], "variable": [{ "key": "code", "value": "" }] }, "description": "Creates a test plan in the selected project." }
+        },
+        {
+          "name": "Get a specific test plan",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/plan/:code/:id", "host": ["{{baseUrl}}"], "path": ["plan", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Retrieves a specific test plan by id." }
+        },
+        {
+          "name": "Update a specific test plan",
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{}" }, "url": { "raw": "{{baseUrl}}/plan/:code/:id", "host": ["{{baseUrl}}"], "path": ["plan", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Updates a specific test plan by id." }
+        },
+        {
+          "name": "Delete a specific test plan",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/plan/:code/:id", "host": ["{{baseUrl}}"], "path": ["plan", ":code", ":id"], "variable": [{ "key": "code", "value": "" }, { "key": "id", "value": "" }] }, "description": "Deletes a specific test plan by id." }
+        }
+      ]
+    }
+  ]
+}

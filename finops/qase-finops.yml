@@ -1,0 +1,92 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Qase
+providerId: qase
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Test Management
+- Test Runs
+- QA
+- TestOps
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Qase spend. Qase is a per-seat SaaS: cost is driven primarily
+  by the number of user licenses times the plan's per-user monthly rate (Free,
+  Startup, Business, or custom Enterprise), billed monthly or annually with a 20
+  percent annual discount. Secondary, usage-style costs come from AI credits
+  (extra credits beyond the monthly allocation are billed per credit) and, on the
+  Free tier, a monthly cap on API-published results that effectively bounds
+  automation volume until you upgrade. The TestOps API carries no separate fee.
+notes: >-
+  Per-user rates and credit prices are list values captured on 2026-07-11 and
+  not reconciled to a signed order. Verify on the Qase pricing page. The dominant
+  cost lever is seat count and plan tier; AI credit overage ($0.40/credit) is a
+  smaller usage-based component.
+sources:
+- https://qase.io/pricing/
+- https://docs.qase.io/en/articles/9855720-tms-pricing-explained
+- https://developers.qase.io/reference/introduction-to-the-qase-api
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Qase
+serviceCategory: Software - Test Management
+billingModel:
+  pricingCategory: Subscription-Per-Seat
+  billingFrequency: Monthly or Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Qase TestOps
+  ServiceCategory: Software - Test Management
+  ProviderName: Qase
+  PublisherName: Qase
+  InvoiceIssuerName: Qase
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: user_seats
+  description: Number of paid user licenses times the plan's per-user monthly rate.
+  unit: users
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: ai_credits
+  description: AI credits consumed; overage beyond the monthly allocation billed at $0.40 per credit.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+- name: api_results
+  description: Test run results published via the API; capped at 25,000/month on the Free tier.
+  unit: results
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+principles:
+- name: Visibility
+  description: Track active seat count per plan and monitor AI-credit and API-result consumption against plan allowances.
+- name: Allocation
+  description: Map Qase projects and seats to teams or products so test management cost lands on the right cost center.
+- name: Optimization
+  description: Right-size seat count and plan tier, deactivate unused users, and stay within monthly AI-credit allocations to avoid $0.40/credit overage.
+- name: Accountability
+  description: Review seat utilization and credit overage each billing cycle; consolidate automation tokens to control API usage on capped tiers.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,142 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Qase
+providerId: qase
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Test Management
+- Test Runs
+- QA
+- TestOps
+- Plans
+description: >-
+  Qase is priced per user per month across four published tiers - a free-forever
+  plan, Startup, Business, and a custom Enterprise plan. Annual billing carries a
+  20 percent discount over monthly. The API is available on every tier,
+  including Free, though the free tier caps monthly API results and other usage.
+  Higher tiers raise user, storage, history, and AI-credit limits. List prices
+  captured from the Qase pricing page on 2026-07-11 and not otherwise reconciled;
+  verify current numbers on the pricing page.
+notes: >-
+  The Qase TestOps API itself has no separate fee - it is included with the
+  subscription. The Free tier documents a 25,000 per month cap on API-published
+  results; extra AI credits beyond the monthly allocation are billed at $0.40
+  per credit. Confirm current tier prices, user caps, and limits during
+  reconciliation.
+sources:
+- https://qase.io/pricing/
+- https://developers.qase.io/reference/introduction-to-the-qase-api
+- https://docs.qase.io/en/articles/9855720-tms-pricing-explained
+plans:
+- id: qase-free
+  name: Free
+  type: free
+  description: >-
+    Free-forever plan for small teams and proof-of-concept testing. Up to 3
+    users and 2 projects, 500 MB storage, 30-day test history, and core test
+    case management, plans, runs, defect management, and API access. API-published
+    results are capped at 25,000 per month.
+  entries:
+  - label: Per User
+    name: free_per_user
+    type: flat
+    metric: user
+    limit: 3
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '0.00'
+    currency: USD
+    userMultiplied: true
+  elements:
+  - name: Up to 3 Users
+  - name: Up to 2 Projects
+  - name: 500 MB Storage
+  - name: 30-Day Test History
+  - name: API Access (25k results/mo)
+- id: qase-startup
+  name: Startup
+  type: paid
+  description: >-
+    Paid plan for growing teams. Up to 20 users, unlimited test runs and
+    projects, 100 GB storage, 90-day test history, 1,000 AI credits per month,
+    and dashboards and reporting.
+  entries:
+  - label: Per User (annual)
+    name: startup_per_user
+    type: flat
+    metric: user
+    limit: 20
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '24.00'
+    currency: USD
+    userMultiplied: true
+  elements:
+  - name: Up to 20 Users
+  - name: Unlimited Test Runs and Projects
+  - name: 100 GB Storage
+  - name: 90-Day Test History
+  - name: 1,000 AI Credits per Month
+  - name: Dashboards and Reporting
+- id: qase-business
+  name: Business
+  type: paid
+  description: >-
+    Paid plan for larger teams. Up to 100 users, everything in Startup plus
+    unlimited storage, 1-year test history, 2,000 AI credits per month,
+    role-based access control, test case review, and premium support.
+  entries:
+  - label: Per User (annual)
+    name: business_per_user
+    type: flat
+    metric: user
+    limit: 100
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '30.00'
+    currency: USD
+    userMultiplied: true
+  elements:
+  - name: Up to 100 Users
+  - name: Unlimited Storage
+  - name: 1-Year Test History
+  - name: 2,000 AI Credits per Month
+  - name: Role-Based Access Control
+  - name: Test Case Review
+  - name: Premium Support
+- id: qase-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom plan for large organizations, minimum 20 users. Everything in
+    Business plus unlimited users, unlimited data history, 4,000 AI credits per
+    month, SAML 2.0 single sign-on, SCIM provisioning, a dedicated account
+    manager, and an SLA.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Unlimited Users
+  - name: Unlimited Data History
+  - name: 4,000 AI Credits per Month
+  - name: SSO (SAML 2.0)
+  - name: SCIM Provisioning
+  - name: Dedicated Account Manager
+  - name: SLA
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

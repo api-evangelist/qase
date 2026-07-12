@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Qase TestOps API v1",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "in": "header",
+        "key": "Token",
+        "value": "{{apiToken}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Projects", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get all projects.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/project" },
+          "docs": "Retrieves all projects available to the authenticated user."
+        },
+        {
+          "info": { "name": "Create a new project.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/project", "body": { "type": "json", "data": "{\n  \"title\": \"My Project\",\n  \"code\": \"MP\"\n}" } },
+          "docs": "Creates a new project."
+        },
+        {
+          "info": { "name": "Get a specific project.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/project/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ] },
+          "docs": "Retrieves a specific project by code."
+        },
+        {
+          "info": { "name": "Delete a specific project.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.qase.io/v1/project/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ] },
+          "docs": "Deletes a specific project by code."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Test Cases", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get all test cases.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/case/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ] },
+          "docs": "Retrieves all test cases stored in the selected project."
+        },
+        {
+          "info": { "name": "Create a new test case.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/case/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ], "body": { "type": "json", "data": "{\n  \"title\": \"Login works\"\n}" } },
+          "docs": "Creates a test case in the selected project."
+        },
+        {
+          "info": { "name": "Get a specific test case.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/case/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test case id." } ] },
+          "docs": "Retrieves a specific test case by id."
+        },
+        {
+          "info": { "name": "Update a specific test case.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/case/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test case id." } ], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates a specific test case by id."
+        },
+        {
+          "info": { "name": "Delete a specific test case.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.qase.io/v1/case/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test case id." } ] },
+          "docs": "Deletes a specific test case by id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Test Suites", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get all test suites.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/suite/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ] },
+          "docs": "Retrieves all test suites stored in the selected project."
+        },
+        {
+          "info": { "name": "Create a new test suite.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/suite/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ], "body": { "type": "json", "data": "{\n  \"title\": \"Regression\"\n}" } },
+          "docs": "Creates a test suite in the selected project."
+        },
+        {
+          "info": { "name": "Get a specific test suite.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/suite/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test suite id." } ] },
+          "docs": "Retrieves a specific test suite by id."
+        },
+        {
+          "info": { "name": "Update a specific test suite.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/suite/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test suite id." } ], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates a specific test suite by id."
+        },
+        {
+          "info": { "name": "Delete a specific test suite.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.qase.io/v1/suite/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test suite id." } ] },
+          "docs": "Deletes a specific test suite by id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Test Runs", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get all test runs.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/run/:code?status=in_progress", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "status", "value": "in_progress", "type": "query", "description": "Filter by run status." } ] },
+          "docs": "Retrieves all test runs stored in the selected project."
+        },
+        {
+          "info": { "name": "Create a new test run.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/run/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ], "body": { "type": "json", "data": "{\n  \"title\": \"Nightly run\",\n  \"cases\": [1, 2, 3]\n}" } },
+          "docs": "Creates a test run in the selected project."
+        },
+        {
+          "info": { "name": "Get a specific test run.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/run/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." } ] },
+          "docs": "Retrieves a specific test run by id."
+        },
+        {
+          "info": { "name": "Update a specific test run.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/run/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." } ], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates a specific test run by id."
+        },
+        {
+          "info": { "name": "Delete a specific test run.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.qase.io/v1/run/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." } ] },
+          "docs": "Completely deletes a test run from the repository."
+        },
+        {
+          "info": { "name": "Complete a specific test run.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/run/:code/:id/complete", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." } ] },
+          "docs": "Marks a specific test run as complete."
+        },
+        {
+          "info": { "name": "Update a test run publicity.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/run/:code/:id/public", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." } ], "body": { "type": "json", "data": "{\n  \"status\": true\n}" } },
+          "docs": "Enables or disables a public shareable report link for a test run."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Test Results", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get all test run results.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/result/:code?run=1", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "run", "value": "1", "type": "query", "description": "Filter by run id(s)." } ] },
+          "docs": "Retrieves all test run results stored in the selected project."
+        },
+        {
+          "info": { "name": "Get a specific test run result.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/result/:code/:hash", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "hash", "value": "", "type": "path", "description": "Result hash." } ] },
+          "docs": "Retrieves a specific test run result by hash."
+        },
+        {
+          "info": { "name": "Create a test run result.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/result/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." } ], "body": { "type": "json", "data": "{\n  \"case_id\": 1,\n  \"status\": \"passed\"\n}" } },
+          "docs": "Creates a test run result for the given run id."
+        },
+        {
+          "info": { "name": "Bulk create test run results.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/result/:code/:id/bulk", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." } ], "body": { "type": "json", "data": "{\n  \"results\": [\n    { \"case_id\": 1, \"status\": \"passed\" },\n    { \"case_id\": 2, \"status\": \"failed\" }\n  ]\n}" } },
+          "docs": "Creates multiple test run results for the given run id in a single request. Used by automation reporters to publish CI results in bulk."
+        },
+        {
+          "info": { "name": "Update a test run result.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/result/:code/:id/:hash", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." }, { "name": "hash", "value": "", "type": "path", "description": "Result hash." } ], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates an existing test run result identified by run id and hash."
+        },
+        {
+          "info": { "name": "Delete a test run result.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.qase.io/v1/result/:code/:id/:hash", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test run id." }, { "name": "hash", "value": "", "type": "path", "description": "Result hash." } ] },
+          "docs": "Deletes a test run result identified by run id and hash."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Defects", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get all defects.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/defect/:code?status=open", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "status", "value": "open", "type": "query", "description": "Filter by defect status." } ] },
+          "docs": "Retrieves all defects stored in the selected project."
+        },
+        {
+          "info": { "name": "Get a specific defect.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/defect/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Defect id." } ] },
+          "docs": "Retrieves a specific defect by id."
+        },
+        {
+          "info": { "name": "Delete a specific defect.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.qase.io/v1/defect/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Defect id." } ] },
+          "docs": "Deletes a specific defect by id."
+        },
+        {
+          "info": { "name": "Resolve a specific defect.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/defect/:code/resolve/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Defect id." } ] },
+          "docs": "Marks a specific defect as resolved."
+        },
+        {
+          "info": { "name": "Update a defect status.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/defect/:code/status/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Defect id." } ], "body": { "type": "json", "data": "{\n  \"status\": \"in_progress\"\n}" } },
+          "docs": "Updates the status of a specific defect."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Test Plans", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get all test plans.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/plan/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ] },
+          "docs": "Retrieves all test plans stored in the selected project."
+        },
+        {
+          "info": { "name": "Create a new test plan.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.qase.io/v1/plan/:code", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." } ], "body": { "type": "json", "data": "{\n  \"title\": \"Smoke plan\",\n  \"cases\": [1, 2, 3]\n}" } },
+          "docs": "Creates a test plan in the selected project."
+        },
+        {
+          "info": { "name": "Get a specific test plan.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.qase.io/v1/plan/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test plan id." } ] },
+          "docs": "Retrieves a specific test plan by id."
+        },
+        {
+          "info": { "name": "Update a specific test plan.", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://api.qase.io/v1/plan/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test plan id." } ], "body": { "type": "json", "data": "{}" } },
+          "docs": "Updates a specific test plan by id."
+        },
+        {
+          "info": { "name": "Delete a specific test plan.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.qase.io/v1/plan/:code/:id", "params": [ { "name": "code", "value": "", "type": "path", "description": "Project code." }, { "name": "id", "value": "", "type": "path", "description": "Test plan id." } ] },
+          "docs": "Deletes a specific test plan by id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

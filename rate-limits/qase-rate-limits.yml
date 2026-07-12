@@ -1,0 +1,54 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Qase
+providerId: qase
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Test Management
+- Test Runs
+- QA
+- Rate Limiting
+- Quotas
+description: >-
+  Qase publishes fixed numeric rate limits for the TestOps API. Requests are
+  limited to 1,000 per minute per user (API token) and 3,000 per minute per IP
+  address. Exceeding a limit returns HTTP 429 Too Many Requests. Separately,
+  subscription plans cap other usage - for example, the Free tier limits
+  API-published results to 25,000 per month - which is a plan quota rather than a
+  per-minute request rate.
+notes: >-
+  Rate limits captured from the Qase API introduction on 2026-07-11. Clients
+  should implement exponential backoff with jitter on 429 responses. Verify
+  current limits in the developer documentation.
+sources:
+- https://developers.qase.io/reference/introduction-to-the-qase-api
+- https://qase.io/pricing/
+responseCodes:
+  throttled: 429
+limits:
+- name: Per-User Request Rate
+  scope: user
+  metric: requests
+  limit: 1000 per minute
+  notes: Limit applies per API token (user).
+- name: Per-IP Request Rate
+  scope: ip
+  metric: requests
+  limit: 3000 per minute
+  notes: Limit applies per source IP address.
+- name: Free Tier API Results
+  scope: account
+  metric: results
+  limit: 25000 per month (Free plan)
+  notes: Plan quota on results published via the API on the Free tier; higher tiers raise or remove the cap.
+policies:
+- name: Backoff Strategy
+  description: On HTTP 429, retry using exponential backoff with jitter and stay within the per-user and per-IP minute limits.
+- name: Token Scoping
+  description: Use separate API tokens per automation user or CI system so per-user limits and permissions are isolated.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/qase-openapi.yml
+summary:
+  types:
+  - apiKey
+schemes:
+- name: TokenAuth
+  type: apiKey
+  in: header
+  scheme: token
+  description: >-
+    A personal or application API token created in the Qase app under Settings.
+    Passed on every request in the `Token` header (for example,
+    `Token: YOUR_API_TOKEN`). All requests must use HTTPS. Access is further
+    constrained by the user's role-based permissions.
+  sources:
+  - openapi/qase-openapi.yml
+  - https://developers.qase.io/reference/introduction-to-the-qase-api
