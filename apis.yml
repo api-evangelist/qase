@@ -194,6 +194,8 @@ apis:
     test cases that can be launched as a test run. Endpoints live at /plan/{code}
     and /plan/{code}/{id}.
 common:
+- type: AgenticAccess
+  url: agentic-access/qase-agentic-access.yml
 - type: Authentication
   url: authentication/qase-authentication.yml
 - type: GitHubOrganization
