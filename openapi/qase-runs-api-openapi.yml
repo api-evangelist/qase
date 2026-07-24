@@ -1,0 +1,386 @@
+openapi: 3.0.3
+info:
+  title: Qase TestOps API v1 cases runs API
+  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform. It exposes the core test management domain over HTTPS - Projects, Test Cases, Test Suites, Test Runs, Test Results, Defects, and Test Plans - so teams can create and manage test cases, launch and complete test runs, publish automated test results from CI pipelines, and track defects programmatically. Authentication uses a personal or application API token passed in the `Token` header. Most collection endpoints are scoped by a project code (a 2-10 character identifier), and support limit/offset pagination. This description grounds a representative subset of the full surface documented at developers.qase.io; the machine-readable source specification is published at github.com/qase-tms/specs.
+  version: '1.0'
+  contact:
+    name: Qase
+    url: https://developers.qase.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.qase.io/v1
+  description: Qase TestOps API v1
+security:
+- TokenAuth: []
+tags:
+- name: runs
+  description: Test runs - executions of selected test cases in a project.
+paths:
+  /run/{code}:
+    parameters:
+    - $ref: '#/components/parameters/Code'
+    get:
+      operationId: get-runs
+      tags:
+      - runs
+      summary: Get all test runs
+      description: Retrieves all test runs stored in the selected project.
+      parameters:
+      - name: search
+        in: query
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: 'A list of status values separated by comma. Possible values: in_progress, passed, failed, aborted.'
+        schema:
+          type: string
+      - name: milestone
+        in: query
+        schema:
+          type: integer
+      - name: environment
+        in: query
+        schema:
+          type: integer
+      - name: from_start_time
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - name: to_start_time
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: A list of all test runs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: create-run
+      tags:
+      - runs
+      summary: Create a new test run
+      description: Creates a test run in the selected project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunCreate'
+      responses:
+        '200':
+          description: The created test run id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /run/{code}/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Code'
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: get-run
+      tags:
+      - runs
+      summary: Get a specific test run
+      description: Retrieves a specific test run by id.
+      responses:
+        '200':
+          description: A test run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: update-run
+      tags:
+      - runs
+      summary: Update a specific test run
+      description: Updates a specific test run by id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunUpdate'
+      responses:
+        '200':
+          description: Update result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: delete-run
+      tags:
+      - runs
+      summary: Delete a specific test run
+      description: Completely deletes a test run from the repository.
+      responses:
+        '200':
+          description: Deletion result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /run/{code}/{id}/complete:
+    parameters:
+    - $ref: '#/components/parameters/Code'
+    - $ref: '#/components/parameters/Id'
+    post:
+      operationId: complete-run
+      tags:
+      - runs
+      summary: Complete a specific test run
+      description: Marks a specific test run as complete.
+      responses:
+        '200':
+          description: Completion result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /run/{code}/{id}/public:
+    parameters:
+    - $ref: '#/components/parameters/Code'
+    - $ref: '#/components/parameters/Id'
+    patch:
+      operationId: update-run-publicity
+      tags:
+      - runs
+      summary: Update a test run publicity
+      description: Enables or disables a public, shareable link for a specific test run and returns the public report URL when enabled.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: boolean
+      responses:
+        '200':
+          description: Public link result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    RunResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Run'
+    RunUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+    RunCreate:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        cases:
+          type: array
+          description: A list of test case IDs to include in the run.
+          items:
+            type: integer
+        plan_id:
+          type: integer
+        environment_id:
+          type: integer
+        milestone_id:
+          type: integer
+        is_autotest:
+          type: boolean
+    RunListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            filtered:
+              type: integer
+            count:
+              type: integer
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Run'
+    Run:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: integer
+        status_text:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+        public:
+          type: boolean
+        stats:
+          type: object
+          additionalProperties: true
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+  parameters:
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
+    Limit:
+      name: limit
+      in: query
+      description: A number of entities in result set. Default is 10, max is 100.
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+  responses:
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    TokenAuth:
+      type: apiKey
+      in: header
+      name: Token
+      description: A personal or application API token. Create it in the Qase app under Settings and pass it in the `Token` header on every request. All requests must use HTTPS.
