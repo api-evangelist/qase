@@ -12,7 +12,20 @@ description: >-
   published on GitHub (qase-tms/specs) and pre-generated clients for PHP,
   Python, JavaScript/TypeScript, Java, and Go. Automation reporters use the bulk
   results endpoint to publish test run results directly from CI.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/qase.png
 tags:
 - Test Runs
 - Test Management
@@ -28,171 +41,216 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: qase:qase-test-runs-api
-  name: Qase Test Runs API
-  tags:
-  - Test Runs
-  - Runs
-  - Test Execution
-  - QA
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: qase:qase-cases-api
+  name: Qase cases API
+  description: Test cases stored in a project repository.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
-  properties:
-  - url: https://developers.qase.io/reference/get-runs
-    type: APIReference
-  - url: https://developers.qase.io/docs/getting-started
-    type: Documentation
-  - url: openapi/qase-openapi.yml
-    type: OpenAPI
-  - url: collections/qase.postman_collection.json
-    type: PostmanCollection
-  - url: collections/qase.opencollection.json
-    type: OpenCollection
-  description: >-
-    Create, list, retrieve, update, delete, and complete test runs in a project,
-    and toggle a public shareable report link. A test run is an execution of a
-    selected set of test cases; filter runs by status (in_progress, passed,
-    failed, aborted), milestone, environment, and start-time window. Endpoints
-    are scoped by project code at /run/{code} and /run/{code}/{id}.
-- aid: qase:qase-test-results-api
-  name: Qase Test Results API
   tags:
-  - Test Results
-  - Results
-  - CI
-  - Test Automation
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.qase.io/reference/create-result
-  baseURL: https://api.qase.io/v1
+  - cases
   properties:
-  - url: https://developers.qase.io/reference/create-result
-    type: APIReference
-  - url: openapi/qase-openapi.yml
-    type: OpenAPI
-  - url: collections/qase.postman_collection.json
-    type: PostmanCollection
-  - url: collections/qase.opencollection.json
-    type: OpenCollection
-  description: >-
-    Publish and manage test run results - the pass/fail/blocked/skipped outcome
-    of each executed case. Create a single result for a run, bulk-create many
-    results in one request (the endpoint automation reporters use to push CI
-    results), list results across runs, and get, update, or delete a result by
-    run id and hash at /result/{code}.
-- aid: qase:qase-test-cases-api
-  name: Qase Test Cases API
-  tags:
-  - Test Cases
-  - Cases
-  - Repository
-  - QA
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.qase.io/reference/get-cases
-  baseURL: https://api.qase.io/v1
-  properties:
-  - url: https://developers.qase.io/reference/get-cases
-    type: APIReference
-  - url: openapi/qase-openapi.yml
-    type: OpenAPI
-  - url: collections/qase.postman_collection.json
-    type: PostmanCollection
-  - url: collections/qase.opencollection.json
-    type: OpenCollection
-  description: >-
-    Manage the test case repository - create, list, get, update, and delete test
-    cases with titles, steps, preconditions, severity, priority, type, and suite
-    assignment. Endpoints are scoped by project code at /case/{code} and
-    /case/{code}/{id}.
-- aid: qase:qase-test-suites-api
-  name: Qase Test Suites API
-  tags:
-  - Test Suites
-  - Suites
-  - Organization
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.qase.io/reference/get-suites
-  baseURL: https://api.qase.io/v1
-  properties:
-  - url: https://developers.qase.io/reference/get-suites
-    type: APIReference
-  - url: openapi/qase-openapi.yml
-    type: OpenAPI
-  - url: collections/qase.postman_collection.json
-    type: PostmanCollection
-  - url: collections/qase.opencollection.json
-    type: OpenCollection
-  description: >-
-    Organize test cases into hierarchical suites. Create, list, get, update, and
-    delete test suites, including nesting via a parent suite, at /suite/{code}
-    and /suite/{code}/{id}.
-- aid: qase:qase-projects-api
-  name: Qase Projects API
-  tags:
-  - Projects
-  - Workspaces
-  - Administration
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.qase.io/reference/get-projects
-  baseURL: https://api.qase.io/v1
-  properties:
-  - url: https://developers.qase.io/reference/get-projects
-    type: APIReference
-  - url: openapi/qase-openapi.yml
-    type: OpenAPI
-  - url: collections/qase.postman_collection.json
-    type: PostmanCollection
-  - url: collections/qase.opencollection.json
-    type: OpenCollection
-  description: >-
-    Create, list, retrieve, and delete projects - the top-level containers,
-    identified by a 2-10 character code, that hold cases, suites, runs, results,
-    plans, and defects. Endpoints live at /project and /project/{code}.
+  - type: OpenAPI
+    url: openapi/qase-cases-api-openapi.yml
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-runs
+  - type: Documentation
+    url: https://developers.qase.io/docs/getting-started
+  - type: PostmanCollection
+    url: collections/qase.postman_collection.json
+  - type: OpenCollection
+    url: collections/qase.opencollection.json
+  - type: APIReference
+    url: https://developers.qase.io/reference/create-result
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-cases
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-suites
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-projects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-defects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-plans
 - aid: qase:qase-defects-api
-  name: Qase Defects API
-  tags:
-  - Defects
-  - Bugs
-  - Issue Tracking
-  - QA
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.qase.io/reference/get-defects
+  name: Qase defects API
+  description: Defects raised against failed test results.
+  humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
-  properties:
-  - url: https://developers.qase.io/reference/get-defects
-    type: APIReference
-  - url: openapi/qase-openapi.yml
-    type: OpenAPI
-  - url: collections/qase.postman_collection.json
-    type: PostmanCollection
-  - url: collections/qase.opencollection.json
-    type: OpenCollection
-  description: >-
-    Track defects raised against failed test results. List and filter defects by
-    status, get a defect, delete it, mark it resolved, and update its status at
-    /defect/{code} and related paths.
-- aid: qase:qase-test-plans-api
-  name: Qase Test Plans API
   tags:
-  - Test Plans
-  - Plans
-  - Test Selection
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.qase.io/reference/get-plans
-  baseURL: https://api.qase.io/v1
+  - defects
   properties:
-  - url: https://developers.qase.io/reference/get-plans
-    type: APIReference
-  - url: openapi/qase-openapi.yml
-    type: OpenAPI
-  - url: collections/qase.postman_collection.json
-    type: PostmanCollection
-  - url: collections/qase.opencollection.json
-    type: OpenCollection
-  description: >-
-    Create, list, get, update, and delete test plans - reusable selections of
-    test cases that can be launched as a test run. Endpoints live at /plan/{code}
-    and /plan/{code}/{id}.
+  - type: OpenAPI
+    url: openapi/qase-defects-api-openapi.yml
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-runs
+  - type: Documentation
+    url: https://developers.qase.io/docs/getting-started
+  - type: PostmanCollection
+    url: collections/qase.postman_collection.json
+  - type: OpenCollection
+    url: collections/qase.opencollection.json
+  - type: APIReference
+    url: https://developers.qase.io/reference/create-result
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-cases
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-suites
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-projects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-defects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-plans
+- aid: qase:qase-plans-api
+  name: Qase plans API
+  description: Test plans - reusable selections of test cases.
+  humanURL: https://developers.qase.io/reference/get-runs
+  baseURL: https://api.qase.io/v1
+  tags:
+  - plans
+  properties:
+  - type: OpenAPI
+    url: openapi/qase-plans-api-openapi.yml
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-runs
+  - type: Documentation
+    url: https://developers.qase.io/docs/getting-started
+  - type: PostmanCollection
+    url: collections/qase.postman_collection.json
+  - type: OpenCollection
+    url: collections/qase.opencollection.json
+  - type: APIReference
+    url: https://developers.qase.io/reference/create-result
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-cases
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-suites
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-projects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-defects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-plans
+- aid: qase:qase-projects-api
+  name: Qase projects API
+  description: Test projects that contain cases, suites, runs, and results.
+  humanURL: https://developers.qase.io/reference/get-runs
+  baseURL: https://api.qase.io/v1
+  tags:
+  - projects
+  properties:
+  - type: OpenAPI
+    url: openapi/qase-projects-api-openapi.yml
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-runs
+  - type: Documentation
+    url: https://developers.qase.io/docs/getting-started
+  - type: PostmanCollection
+    url: collections/qase.postman_collection.json
+  - type: OpenCollection
+    url: collections/qase.opencollection.json
+  - type: APIReference
+    url: https://developers.qase.io/reference/create-result
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-cases
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-suites
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-projects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-defects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-plans
+- aid: qase:qase-results-api
+  name: Qase results API
+  description: Test run results, including bulk publishing from CI/automation.
+  humanURL: https://developers.qase.io/reference/get-runs
+  baseURL: https://api.qase.io/v1
+  tags:
+  - results
+  properties:
+  - type: OpenAPI
+    url: openapi/qase-results-api-openapi.yml
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-runs
+  - type: Documentation
+    url: https://developers.qase.io/docs/getting-started
+  - type: PostmanCollection
+    url: collections/qase.postman_collection.json
+  - type: OpenCollection
+    url: collections/qase.opencollection.json
+  - type: APIReference
+    url: https://developers.qase.io/reference/create-result
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-cases
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-suites
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-projects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-defects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-plans
+- aid: qase:qase-runs-api
+  name: Qase runs API
+  description: Test runs - executions of selected test cases in a project.
+  humanURL: https://developers.qase.io/reference/get-runs
+  baseURL: https://api.qase.io/v1
+  tags:
+  - runs
+  properties:
+  - type: OpenAPI
+    url: openapi/qase-runs-api-openapi.yml
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-runs
+  - type: Documentation
+    url: https://developers.qase.io/docs/getting-started
+  - type: PostmanCollection
+    url: collections/qase.postman_collection.json
+  - type: OpenCollection
+    url: collections/qase.opencollection.json
+  - type: APIReference
+    url: https://developers.qase.io/reference/create-result
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-cases
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-suites
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-projects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-defects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-plans
+- aid: qase:qase-suites-api
+  name: Qase suites API
+  description: Test suites that group and organize test cases.
+  humanURL: https://developers.qase.io/reference/get-runs
+  baseURL: https://api.qase.io/v1
+  tags:
+  - suites
+  properties:
+  - type: OpenAPI
+    url: openapi/qase-suites-api-openapi.yml
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-runs
+  - type: Documentation
+    url: https://developers.qase.io/docs/getting-started
+  - type: PostmanCollection
+    url: collections/qase.postman_collection.json
+  - type: OpenCollection
+    url: collections/qase.opencollection.json
+  - type: APIReference
+    url: https://developers.qase.io/reference/create-result
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-cases
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-suites
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-projects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-defects
+  - type: APIReference
+    url: https://developers.qase.io/reference/get-plans
 common:
 - type: AgenticAccess
   url: agentic-access/qase-agentic-access.yml
