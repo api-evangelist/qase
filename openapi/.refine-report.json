@@ -1,0 +1,26 @@
+{
+  "provider": "qase",
+  "sources": [
+    "qase-cases-api-openapi.yml",
+    "qase-defects-api-openapi.yml",
+    "qase-plans-api-openapi.yml",
+    "qase-projects-api-openapi.yml",
+    "qase-results-api-openapi.yml",
+    "qase-runs-api-openapi.yml",
+    "qase-suites-api-openapi.yml"
+  ],
+  "outputs": [
+    "qase-cases-api-openapi.yml",
+    "qase-defects-api-openapi.yml",
+    "qase-plans-api-openapi.yml",
+    "qase-projects-api-openapi.yml",
+    "qase-results-api-openapi.yml",
+    "qase-runs-api-openapi.yml",
+    "qase-suites-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
