@@ -252,6 +252,9 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 common:
+- type: License
+  name: Apache-2.0
+  url: https://github.com/qase-tms/specs/blob/master/LICENSE
 - type: AgenticAccess
   url: agentic-access/qase-agentic-access.yml
 - type: Authentication
