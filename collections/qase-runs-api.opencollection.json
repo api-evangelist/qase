@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Qase TestOps API v1 cases runs API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Token",
+      "value": "{{Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all test runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/run/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "A list of status values separated by comma. Possible values: in_progress, passed, failed, aborted."
+              },
+              {
+                "name": "milestone",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from_start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A number of entities in result set. Default is 10, max is 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "How many entities should be skipped. Default is 0."
+              }
+            ]
+          },
+          "docs": "Retrieves all test runs stored in the selected project."
+        },
+        {
+          "info": {
+            "name": "Create a new test run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.qase.io/v1/run/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a test run in the selected project."
+        },
+        {
+          "info": {
+            "name": "Get a specific test run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/run/:code/:id",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific test run by id."
+        },
+        {
+          "info": {
+            "name": "Update a specific test run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.qase.io/v1/run/:code/:id",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a specific test run by id."
+        },
+        {
+          "info": {
+            "name": "Delete a specific test run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.qase.io/v1/run/:code/:id",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ]
+          },
+          "docs": "Completely deletes a test run from the repository."
+        },
+        {
+          "info": {
+            "name": "Complete a specific test run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.qase.io/v1/run/:code/:id/complete",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ]
+          },
+          "docs": "Marks a specific test run as complete."
+        },
+        {
+          "info": {
+            "name": "Update a test run publicity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.qase.io/v1/run/:code/:id/public",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables or disables a public, shareable link for a specific test run and returns the public report URL when enabled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1524 @@
+{
+  "item": [
+    {
+      "id": "52b22803-475e-482a-a7bb-722437ddf17b",
+      "name": "cases",
+      "description": {
+        "content": "Test cases stored in a project repository.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "317a72aa-0c73-4eaf-b570-5c62f9e2c88b",
+          "name": "Get all test cases",
+          "request": {
+            "name": "Get all test cases",
+            "description": {
+              "content": "Retrieves all test cases stored in the selected project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "case",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "suite_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "A number of entities in result set. Default is 10, max is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "How many entities should be skipped. Default is 0."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f2a9c54f-eff6-4680-adf8-b83ee080cf0f",
+              "name": "A list of test cases.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "suite_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"result\": {\n    \"total\": 6788,\n    \"filtered\": 530,\n    \"count\": 4115,\n    \"entities\": [\n      {\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"preconditions\": \"string\",\n        \"postconditions\": \"string\",\n        \"severity\": 5841,\n        \"priority\": 9190,\n        \"type\": 1166,\n        \"suite_id\": 4873,\n        \"steps\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": 7155,\n            \"key_2\": false\n          },\n          {\n            \"key_0\": 3506.5816677560515,\n            \"key_1\": 8000.03215693827\n          }\n        ],\n        \"id\": 9880\n      },\n      {\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"preconditions\": \"string\",\n        \"postconditions\": \"string\",\n        \"severity\": 5752,\n        \"priority\": 3085,\n        \"type\": 8905,\n        \"suite_id\": 2451,\n        \"steps\": [\n          {\n            \"key_0\": false,\n            \"key_1\": false\n          },\n          {\n            \"key_0\": false,\n            \"key_1\": false,\n            \"key_2\": 2633.17942097815\n          }\n        ],\n        \"id\": 8743\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c1bea86-ab83-4a89-a734-6927c50b7466",
+              "name": "Unauthorized - missing or invalid API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "suite_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc2172ad-b921-4189-ab5a-4e6d6d6019dd",
+              "name": "Too Many Requests - the rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "suite_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39cefc0d-b764-4546-be9c-f9f0d12e13e8",
+          "name": "Create a new test case",
+          "request": {
+            "name": "Create a new test case",
+            "description": {
+              "content": "Creates a test case in the selected project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "case",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": 4722.033956792087,\n      \"key_1\": false\n    },\n    {\n      \"key_0\": 9014.90355906989,\n      \"key_1\": \"string\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67ba46e1-8c49-4afc-83d7-7640bb796635",
+              "name": "The created test case id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"result\": {\n    \"id\": 4243\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d476f339-111d-498e-b46b-ce8a70a74ad1",
+              "name": "Unauthorized - missing or invalid API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54fae93f-7831-4ac1-bf0d-adbb4b383a49",
+              "name": "The request payload failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58fd4917-b1fa-4277-b9c4-054b155f2fa9",
+              "name": "Too Many Requests - the rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52e63687-5375-4ce0-a9b7-bc98a05f7323",
+          "name": "Get a specific test case",
+          "request": {
+            "name": "Get a specific test case",
+            "description": {
+              "content": "Retrieves a specific test case by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "case",
+                ":code",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93013aa2-9473-47f8-97d8-028d94da04b2",
+              "name": "A test case.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"result\": {\n    \"title\": \"<string>\",\n    \"description\": \"<string>\",\n    \"preconditions\": \"<string>\",\n    \"postconditions\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"priority\": \"<integer>\",\n    \"type\": \"<integer>\",\n    \"suite_id\": \"<integer>\",\n    \"steps\": [\n      {\n        \"key_0\": 9769.81347060849\n      },\n      {\n        \"key_0\": 5627.232269553791,\n        \"key_1\": true\n      }\n    ],\n    \"id\": 6514\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0a8d15a-d929-4779-a0aa-608005e9a252",
+              "name": "Unauthorized - missing or invalid API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0151fa7e-f63e-4cdb-8d7a-f0de3f784b0e",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d31a436-562e-4532-9c99-186bdc71d79a",
+              "name": "Too Many Requests - the rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e602a091-bab8-4a85-8781-a956868b3511",
+          "name": "Update a specific test case",
+          "request": {
+            "name": "Update a specific test case",
+            "description": {
+              "content": "Updates a specific test case by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "case",
+                ":code",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": 4722.033956792087,\n      \"key_1\": false\n    },\n    {\n      \"key_0\": 9014.90355906989,\n      \"key_1\": \"string\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4dea56cc-b871-430d-9ed5-4d19cd714909",
+              "name": "The updated test case id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"result\": {\n    \"id\": 4243\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e850f45-d0a6-4d2c-b94c-956a4e1cde20",
+              "name": "Unauthorized - missing or invalid API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e851fe8-6e84-44cd-81fb-f0a03cc72523",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1d1aaf6-8e9b-4768-992d-3ed2a6e509aa",
+              "name": "Too Many Requests - the rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"preconditions\": \"<string>\",\n  \"postconditions\": \"<string>\",\n  \"severity\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"type\": \"<integer>\",\n  \"suite_id\": \"<integer>\",\n  \"steps\": [\n    {\n      \"key_0\": false,\n      \"key_1\": 6979.297240127887\n    },\n    {\n      \"key_0\": 4125.996532763583\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cf09c93-40aa-475e-b2b8-086d0988007f",
+          "name": "Delete a specific test case",
+          "request": {
+            "name": "Delete a specific test case",
+            "description": {
+              "content": "Deletes a specific test case by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "case",
+                ":code",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the entity."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79ebf6e7-ec42-4ecb-9dd1-1e43538b75c2",
+              "name": "Deletion result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"result\": {\n    \"id\": 4243\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c79c042-653e-4c04-8b50-5232a721ae44",
+              "name": "Unauthorized - missing or invalid API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc696df2-358e-46d9-ab2b-83141190fde6",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcc56a5c-8291-44fd-9696-f5a2e5d0a2be",
+              "name": "Too Many Requests - the rate limit has been exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "case",
+                    ":code",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of the project, uppercase, 2-10 characters."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the entity."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": false,\n  \"errorMessage\": \"string\",\n  \"errorFields\": [\n    {\n      \"key_0\": 1915,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 1810\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.qase.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f5c6966d-7209-4ddb-bd28-93d8ca989720",
+    "name": "Qase TestOps API v1 cases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform. It exposes the core test management domain over HTTPS - Projects, Test Cases, Test Suites, Test Runs, Test Results, Defects, and Test Plans - so teams can create and manage test cases, launch and complete test runs, publish automated test results from CI pipelines, and track defects programmatically. Authentication uses a personal or application API token passed in the `Token` header. Most collection endpoints are scoped by a project code (a 2-10 character identifier), and support limit/offset pagination. This description grounds a representative subset of the full surface documented at developers.qase.io; the machine-readable source specification is published at github.com/qase-tms/specs.\n\nContact Support:\n Name: Qase",
+      "type": "text/plain"
+    }
+  }
+}

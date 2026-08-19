@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Qase TestOps API v1 cases suites API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Token",
+      "value": "{{Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "suites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all test suites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/suite/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A number of entities in result set. Default is 10, max is 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "How many entities should be skipped. Default is 0."
+              }
+            ]
+          },
+          "docs": "Retrieves all test suites stored in the selected project."
+        },
+        {
+          "info": {
+            "name": "Create a new test suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.qase.io/v1/suite/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a test suite in the selected project."
+        },
+        {
+          "info": {
+            "name": "Get a specific test suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/suite/:code/:id",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific test suite by id."
+        },
+        {
+          "info": {
+            "name": "Update a specific test suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.qase.io/v1/suite/:code/:id",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a specific test suite by id."
+        },
+        {
+          "info": {
+            "name": "Delete a specific test suite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.qase.io/v1/suite/:code/:id",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ]
+          },
+          "docs": "Deletes a specific test suite by id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

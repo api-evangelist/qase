@@ -1,0 +1,224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Qase TestOps API v1 cases results API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Token",
+      "value": "{{Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all test run results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/result/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "A single test run result status. Possible values: in_progress, passed, failed, blocked, skipped, invalid."
+              },
+              {
+                "name": "run",
+                "value": "",
+                "type": "query",
+                "description": "A list of run IDs separated by comma."
+              },
+              {
+                "name": "case_id",
+                "value": "",
+                "type": "query",
+                "description": "A list of case IDs separated by comma."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A number of entities in result set. Default is 10, max is 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "How many entities should be skipped. Default is 0."
+              }
+            ]
+          },
+          "docs": "Retrieves all test run results stored in the selected project."
+        },
+        {
+          "info": {
+            "name": "Get a specific test run result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/result/:code/:hash",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of the entity (used for test run results)."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific test run result by hash."
+        },
+        {
+          "info": {
+            "name": "Create a test run result",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.qase.io/v1/result/:code/:id",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a test run result for the given run id."
+        },
+        {
+          "info": {
+            "name": "Bulk create test run results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.qase.io/v1/result/:code/:id/bulk",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates multiple test run results for the given run id in a single request. This is the endpoint automation reporters use to publish CI results in bulk."
+        },
+        {
+          "info": {
+            "name": "Update a test run result",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.qase.io/v1/result/:code/:id/:hash",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of the entity (used for test run results)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing test run result identified by run id and hash."
+        },
+        {
+          "info": {
+            "name": "Delete a test run result",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.qase.io/v1/result/:code/:id/:hash",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the entity."
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "Hash of the entity (used for test run results)."
+              }
+            ]
+          },
+          "docs": "Deletes a test run result identified by run id and hash."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

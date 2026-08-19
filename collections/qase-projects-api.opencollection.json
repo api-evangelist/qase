@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Qase TestOps API v1 cases projects API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Token",
+      "value": "{{Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/project",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A number of entities in result set. Default is 10, max is 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "How many entities should be skipped. Default is 0."
+              }
+            ]
+          },
+          "docs": "Retrieves all projects available to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create a new project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.qase.io/v1/project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project."
+        },
+        {
+          "info": {
+            "name": "Get a specific project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.qase.io/v1/project/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific project by code."
+        },
+        {
+          "info": {
+            "name": "Delete a specific project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.qase.io/v1/project/:code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of the project, uppercase, 2-10 characters."
+              }
+            ]
+          },
+          "docs": "Deletes a specific project by code."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
