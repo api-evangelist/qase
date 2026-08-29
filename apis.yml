@@ -12,6 +12,20 @@ description: >-
   published on GitHub (qase-tms/specs) and pre-generated clients for PHP,
   Python, JavaScript/TypeScript, Java, and Go. Automation reporters use the bulk
   results endpoint to publish test run results directly from CI.
+deliveryModel:
+  model: open-core
+  license: Apache-2.0
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -266,6 +280,10 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 common:
+- type: IssueTracker
+  url: https://github.com/qase-tms/specs/issues
+- type: CodeOfConduct
+  url: https://github.com/qase-tms/.github/blob/master/.github/CODE_OF_CONDUCT.md
 - type: License
   name: Apache-2.0
   url: https://github.com/qase-tms/specs/blob/master/LICENSE
