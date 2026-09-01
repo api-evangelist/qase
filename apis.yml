@@ -93,7 +93,7 @@ apis:
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
   tags:
-  - defects
+  - Defects
   tags_raw:
   - defects
   properties:
@@ -221,7 +221,7 @@ apis:
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
   tags:
-  - runs
+  - Runs
   tags_raw:
   - runs
   properties:
@@ -253,7 +253,7 @@ apis:
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
   tags:
-  - suites
+  - Suites
   tags_raw:
   - suites
   properties:
