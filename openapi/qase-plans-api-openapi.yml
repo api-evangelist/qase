@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Qase TestOps API v1 cases plans API
-  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform. It exposes the core test management domain over HTTPS - Projects, Test Cases, Test Suites, Test Runs, Test Results, Defects, and Test Plans - so teams can create and manage test cases, launch and complete test runs, publish automated test results from CI pipelines, and track defects programmatically. Authentication uses a personal or application API token passed in the `Token` header. Most collection endpoints are scoped by a project code (a 2-10 character identifier), and support limit/offset pagination. This description grounds a representative subset of the full surface documented at developers.qase.io; the machine-readable source specification is published at github.com/qase-tms/specs.
+  title: Qase TestOps API v1 Plans API
+  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform.
   version: '1.0'
   contact:
     name: Qase
@@ -15,7 +15,7 @@ servers:
 security:
 - TokenAuth: []
 tags:
-- name: plans
+- name: Plans
   description: Test plans - reusable selections of test cases.
 paths:
   /plan/{code}:
@@ -24,7 +24,7 @@ paths:
     get:
       operationId: get-plans
       tags:
-      - plans
+      - Plans
       summary: Get all test plans
       description: Retrieves all test plans stored in the selected project.
       parameters:
@@ -44,7 +44,7 @@ paths:
     post:
       operationId: create-plan
       tags:
-      - plans
+      - Plans
       summary: Create a new test plan
       description: Creates a test plan in the selected project.
       requestBody:
@@ -73,7 +73,7 @@ paths:
     get:
       operationId: get-plan
       tags:
-      - plans
+      - Plans
       summary: Get a specific test plan
       description: Retrieves a specific test plan by id.
       responses:
@@ -92,7 +92,7 @@ paths:
     patch:
       operationId: update-plan
       tags:
-      - plans
+      - Plans
       summary: Update a specific test plan
       description: Updates a specific test plan by id.
       requestBody:
@@ -117,7 +117,7 @@ paths:
     delete:
       operationId: delete-plan
       tags:
-      - plans
+      - Plans
       summary: Delete a specific test plan
       description: Deletes a specific test plan by id.
       responses:
@@ -134,37 +134,57 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  parameters:
-    Code:
-      name: code
-      in: path
-      required: true
-      description: Code of the project, uppercase, 2-10 characters.
-      schema:
-        type: string
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
-    Limit:
-      name: limit
-      in: query
-      description: A number of entities in result set. Default is 10, max is 100.
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
+  responses:
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    PlanCreate:
+      type: object
+      required:
+      - title
+      - cases
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        cases:
+          type: array
+          items:
+            type: integer
+    Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        cases_count:
+          type: integer
     PlanListResponse:
       type: object
       properties:
@@ -183,49 +203,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Plan'
-    IdResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-    Plan:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        description:
-          type: string
-        cases_count:
-          type: integer
-    PlanResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Plan'
-    PlanCreate:
-      type: object
-      required:
-      - title
-      - cases
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        cases:
-          type: array
-          items:
-            type: integer
     Error:
       type: object
       properties:
@@ -239,31 +216,54 @@ components:
           items:
             type: object
             additionalProperties: true
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+    PlanResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Plan'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: A number of entities in result set. Default is 10, max is 100.
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey

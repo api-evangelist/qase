@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Qase TestOps API v1 cases API
-  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform. It exposes the core test management domain over HTTPS - Projects, Test Cases, Test Suites, Test Runs, Test Results, Defects, and Test Plans - so teams can create and manage test cases, launch and complete test runs, publish automated test results from CI pipelines, and track defects programmatically. Authentication uses a personal or application API token passed in the `Token` header. Most collection endpoints are scoped by a project code (a 2-10 character identifier), and support limit/offset pagination. This description grounds a representative subset of the full surface documented at developers.qase.io; the machine-readable source specification is published at github.com/qase-tms/specs.
+  title: Qase TestOps API v1 Cases API
+  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform.
   version: '1.0'
   contact:
     name: Qase
@@ -15,7 +15,7 @@ servers:
 security:
 - TokenAuth: []
 tags:
-- name: cases
+- name: Cases
   description: Test cases stored in a project repository.
 paths:
   /case/{code}:
@@ -24,7 +24,7 @@ paths:
     get:
       operationId: get-cases
       tags:
-      - cases
+      - Cases
       summary: Get all test cases
       description: Retrieves all test cases stored in the selected project.
       parameters:
@@ -48,7 +48,7 @@ paths:
     post:
       operationId: create-case
       tags:
-      - cases
+      - Cases
       summary: Create a new test case
       description: Creates a test case in the selected project.
       requestBody:
@@ -77,7 +77,7 @@ paths:
     get:
       operationId: get-case
       tags:
-      - cases
+      - Cases
       summary: Get a specific test case
       description: Retrieves a specific test case by id.
       responses:
@@ -96,7 +96,7 @@ paths:
     patch:
       operationId: update-case
       tags:
-      - cases
+      - Cases
       summary: Update a specific test case
       description: Updates a specific test case by id.
       requestBody:
@@ -121,7 +121,7 @@ paths:
     delete:
       operationId: delete-case
       tags:
-      - cases
+      - Cases
       summary: Delete a specific test case
       description: Deletes a specific test case by id.
       responses:
@@ -138,14 +138,32 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Case:
-      allOf:
-      - $ref: '#/components/schemas/CaseCreate'
-      - type: object
-        properties:
-          id:
-            type: integer
     CaseListResponse:
       type: object
       properties:
@@ -164,6 +182,37 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Case'
+    Case:
+      allOf:
+      - $ref: '#/components/schemas/CaseCreate'
+      - type: object
+        properties:
+          id:
+            type: integer
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
     CaseCreate:
       type: object
       required:
@@ -190,17 +239,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    IdResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
     CaseResponse:
       type: object
       properties:
@@ -208,34 +246,7 @@ components:
           type: boolean
         result:
           $ref: '#/components/schemas/Case'
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
   parameters:
-    Code:
-      name: code
-      in: path
-      required: true
-      description: Code of the project, uppercase, 2-10 characters.
-      schema:
-        type: string
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
     Limit:
       name: limit
       in: query
@@ -244,6 +255,13 @@ components:
         type: integer
         default: 10
         maximum: 100
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
     Offset:
       name: offset
       in: query
@@ -251,31 +269,13 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey

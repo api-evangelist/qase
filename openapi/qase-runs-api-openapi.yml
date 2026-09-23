@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Qase TestOps API v1 cases runs API
-  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform. It exposes the core test management domain over HTTPS - Projects, Test Cases, Test Suites, Test Runs, Test Results, Defects, and Test Plans - so teams can create and manage test cases, launch and complete test runs, publish automated test results from CI pipelines, and track defects programmatically. Authentication uses a personal or application API token passed in the `Token` header. Most collection endpoints are scoped by a project code (a 2-10 character identifier), and support limit/offset pagination. This description grounds a representative subset of the full surface documented at developers.qase.io; the machine-readable source specification is published at github.com/qase-tms/specs.
+  title: Qase TestOps API v1 Runs API
+  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform.
   version: '1.0'
   contact:
     name: Qase
@@ -15,7 +15,7 @@ servers:
 security:
 - TokenAuth: []
 tags:
-- name: runs
+- name: Runs
   description: Test runs - executions of selected test cases in a project.
 paths:
   /run/{code}:
@@ -24,7 +24,7 @@ paths:
     get:
       operationId: get-runs
       tags:
-      - runs
+      - Runs
       summary: Get all test runs
       description: Retrieves all test runs stored in the selected project.
       parameters:
@@ -71,7 +71,7 @@ paths:
     post:
       operationId: create-run
       tags:
-      - runs
+      - Runs
       summary: Create a new test run
       description: Creates a test run in the selected project.
       requestBody:
@@ -100,7 +100,7 @@ paths:
     get:
       operationId: get-run
       tags:
-      - runs
+      - Runs
       summary: Get a specific test run
       description: Retrieves a specific test run by id.
       responses:
@@ -119,7 +119,7 @@ paths:
     patch:
       operationId: update-run
       tags:
-      - runs
+      - Runs
       summary: Update a specific test run
       description: Updates a specific test run by id.
       requestBody:
@@ -144,7 +144,7 @@ paths:
     delete:
       operationId: delete-run
       tags:
-      - runs
+      - Runs
       summary: Delete a specific test run
       description: Completely deletes a test run from the repository.
       responses:
@@ -167,7 +167,7 @@ paths:
     post:
       operationId: complete-run
       tags:
-      - runs
+      - Runs
       summary: Complete a specific test run
       description: Marks a specific test run as complete.
       responses:
@@ -190,7 +190,7 @@ paths:
     patch:
       operationId: update-run-publicity
       tags:
-      - runs
+      - Runs
       summary: Update a test run publicity
       description: Enables or disables a public, shareable link for a specific test run and returns the public report URL when enabled.
       requestBody:
@@ -216,6 +216,31 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     RunResponse:
       type: object
@@ -224,13 +249,24 @@ components:
           type: boolean
         result:
           $ref: '#/components/schemas/Run'
-    RunUpdate:
+    RunListResponse:
       type: object
       properties:
-        title:
-          type: string
-        description:
-          type: string
+        status:
+          type: boolean
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            filtered:
+              type: integer
+            count:
+              type: integer
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Run'
     RunCreate:
       type: object
       required:
@@ -253,24 +289,37 @@ components:
           type: integer
         is_autotest:
           type: boolean
-    RunListResponse:
+    Error:
       type: object
       properties:
         status:
           type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
         result:
           type: object
           properties:
-            total:
+            id:
               type: integer
-            filtered:
-              type: integer
-            count:
-              type: integer
-            entities:
-              type: array
-              items:
-                $ref: '#/components/schemas/Run'
+    RunUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
     Run:
       type: object
       properties:
@@ -293,51 +342,13 @@ components:
         stats:
           type: object
           additionalProperties: true
-    IdResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
     BaseResponse:
       type: object
       properties:
         status:
           type: boolean
           example: true
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
   parameters:
-    Code:
-      name: code
-      in: path
-      required: true
-      description: Code of the project, uppercase, 2-10 characters.
-      schema:
-        type: string
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
     Limit:
       name: limit
       in: query
@@ -346,6 +357,13 @@ components:
         type: integer
         default: 10
         maximum: 100
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
     Offset:
       name: offset
       in: query
@@ -353,31 +371,13 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey

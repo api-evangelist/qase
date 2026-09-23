@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Qase TestOps API v1 cases results API
-  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform. It exposes the core test management domain over HTTPS - Projects, Test Cases, Test Suites, Test Runs, Test Results, Defects, and Test Plans - so teams can create and manage test cases, launch and complete test runs, publish automated test results from CI pipelines, and track defects programmatically. Authentication uses a personal or application API token passed in the `Token` header. Most collection endpoints are scoped by a project code (a 2-10 character identifier), and support limit/offset pagination. This description grounds a representative subset of the full surface documented at developers.qase.io; the machine-readable source specification is published at github.com/qase-tms/specs.
+  title: Qase TestOps API v1 Results API
+  description: The Qase TestOps API v1 is a token-authenticated REST API for the Qase test management platform.
   version: '1.0'
   contact:
     name: Qase
@@ -15,7 +15,7 @@ servers:
 security:
 - TokenAuth: []
 tags:
-- name: results
+- name: Results
   description: Test run results, including bulk publishing from CI/automation.
 paths:
   /result/{code}:
@@ -24,7 +24,7 @@ paths:
     get:
       operationId: get-results
       tags:
-      - results
+      - Results
       summary: Get all test run results
       description: Retrieves all test run results stored in the selected project.
       parameters:
@@ -63,7 +63,7 @@ paths:
     get:
       operationId: get-result
       tags:
-      - results
+      - Results
       summary: Get a specific test run result
       description: Retrieves a specific test run result by hash.
       responses:
@@ -86,7 +86,7 @@ paths:
     post:
       operationId: create-result
       tags:
-      - results
+      - Results
       summary: Create a test run result
       description: Creates a test run result for the given run id.
       requestBody:
@@ -115,7 +115,7 @@ paths:
     post:
       operationId: create-result-bulk
       tags:
-      - results
+      - Results
       summary: Bulk create test run results
       description: Creates multiple test run results for the given run id in a single request. This is the endpoint automation reporters use to publish CI results in bulk.
       requestBody:
@@ -145,7 +145,7 @@ paths:
     patch:
       operationId: update-result
       tags:
-      - results
+      - Results
       summary: Update a test run result
       description: Updates an existing test run result identified by run id and hash.
       requestBody:
@@ -170,7 +170,7 @@ paths:
     delete:
       operationId: delete-result
       tags:
-      - results
+      - Results
       summary: Delete a test run result
       description: Deletes a test run result identified by run id and hash.
       responses:
@@ -188,26 +188,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    HashResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            hash:
-              type: string
-    ResultBulkCreate:
-      type: object
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResultCreate'
     ResultCreate:
       type: object
       required:
@@ -237,13 +217,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    ResultResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Result'
     ResultListResponse:
       type: object
       properties:
@@ -262,6 +235,22 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Result'
+    ResultResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Result'
+    ResultBulkCreate:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultCreate'
     Result:
       type: object
       properties:
@@ -278,12 +267,6 @@ components:
           type: string
         run_id:
           type: integer
-    BaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
     Error:
       type: object
       properties:
@@ -297,46 +280,26 @@ components:
           items:
             type: object
             additionalProperties: true
-  parameters:
-    Code:
-      name: code
-      in: path
-      required: true
-      description: Code of the project, uppercase, 2-10 characters.
-      schema:
-        type: string
-    Hash:
-      name: hash
-      in: path
-      required: true
-      description: Hash of the entity (used for test run results).
-      schema:
-        type: string
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
-    Limit:
-      name: limit
-      in: query
-      description: A number of entities in result set. Default is 10, max is 100.
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
+    HashResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            hash:
+              type: string
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
   responses:
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
+    UnprocessableEntity:
+      description: The request payload failed validation.
       content:
         application/json:
           schema:
@@ -347,18 +310,55 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Hash:
+      name: hash
+      in: path
+      required: true
+      description: Hash of the entity (used for test run results).
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: A number of entities in result set. Default is 10, max is 100.
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey
