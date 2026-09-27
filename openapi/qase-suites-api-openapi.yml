@@ -134,27 +134,37 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: A number of entities in result set. Default is 10, max is 100.
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
   schemas:
-    SuiteResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Suite'
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
     IdResponse:
       type: object
       properties:
@@ -166,6 +176,26 @@ components:
           properties:
             id:
               type: integer
+    SuiteCreate:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        preconditions:
+          type: string
+        parent_id:
+          type: integer
+    Suite:
+      allOf:
+      - $ref: '#/components/schemas/SuiteCreate'
+      - type: object
+        properties:
+          id:
+            type: integer
     SuiteListResponse:
       type: object
       properties:
@@ -184,33 +214,27 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Suite'
-    Suite:
-      allOf:
-      - $ref: '#/components/schemas/SuiteCreate'
-      - type: object
-        properties:
-          id:
-            type: integer
-    SuiteCreate:
+    Error:
       type: object
-      required:
-      - title
       properties:
-        title:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
           type: string
-        description:
-          type: string
-        preconditions:
-          type: string
-        parent_id:
-          type: integer
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    SuiteResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Suite'
   responses:
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Too Many Requests - the rate limit has been exceeded.
       content:
@@ -223,42 +247,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: A number of entities in result set. Default is 10, max is 100.
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-    Code:
-      name: code
-      in: path
-      required: true
-      description: Code of the project, uppercase, 2-10 characters.
-      schema:
-        type: string
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey

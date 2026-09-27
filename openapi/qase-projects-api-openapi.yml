@@ -106,42 +106,73 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: A number of entities in result set. Default is 10, max is 100.
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
   schemas:
-    Project:
+    CodeResponse:
       type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            code:
+              type: string
+    ProjectCreate:
+      type: object
+      required:
+      - title
+      - code
       properties:
         title:
           type: string
         code:
           type: string
-        counts:
-          type: object
-          additionalProperties: true
+          description: Uppercase project code, 2-10 characters.
+        description:
+          type: string
+        access:
+          type: string
+          enum:
+          - all
+          - group
+          - none
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+    ProjectResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Project'
     Error:
       type: object
       properties:
@@ -173,72 +204,41 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Project'
-    BaseResponse:
+    Project:
       type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-    CodeResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            code:
-              type: string
-    ProjectCreate:
-      type: object
-      required:
-      - title
-      - code
       properties:
         title:
           type: string
         code:
           type: string
-          description: Uppercase project code, 2-10 characters.
-        description:
-          type: string
-        access:
-          type: string
-          enum:
-          - all
-          - group
-          - none
-    ProjectResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Project'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: A number of entities in result set. Default is 10, max is 100.
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-    Code:
-      name: code
-      in: path
-      required: true
-      description: Code of the project, uppercase, 2-10 characters.
-      schema:
-        type: string
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
+        counts:
+          type: object
+          additionalProperties: true
+  responses:
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     TokenAuth:
       type: apiKey

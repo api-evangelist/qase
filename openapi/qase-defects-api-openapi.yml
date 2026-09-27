@@ -147,6 +147,107 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: A number of entities in result set. Default is 10, max is 100.
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+    Code:
+      name: code
+      in: path
+      required: true
+      description: Code of the project, uppercase, 2-10 characters.
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
+  schemas:
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    DefectListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            filtered:
+              type: integer
+            count:
+              type: integer
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Defect'
+    DefectResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Defect'
+    Defect:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        actual_result:
+          type: string
+        severity:
+          type: integer
+        status:
+          type: string
+        milestone_id:
+          type: integer
   responses:
     TooManyRequests:
       description: Too Many Requests - the rate limit has been exceeded.
@@ -166,107 +267,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: A number of entities in result set. Default is 10, max is 100.
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-    Code:
-      name: code
-      in: path
-      required: true
-      description: Code of the project, uppercase, 2-10 characters.
-      schema:
-        type: string
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
-  schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    IdResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-    DefectResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Defect'
-    DefectListResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          type: object
-          properties:
-            total:
-              type: integer
-            filtered:
-              type: integer
-            count:
-              type: integer
-            entities:
-              type: array
-              items:
-                $ref: '#/components/schemas/Defect'
-    BaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-    Defect:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        actual_result:
-          type: string
-        severity:
-          type: integer
-        status:
-          type: string
-        milestone_id:
-          type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey

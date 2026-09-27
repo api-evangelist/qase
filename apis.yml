@@ -56,7 +56,7 @@ modified: '2026-07-11'
 specificationVersion: '0.23'
 apis:
 - aid: qase:qase-cases-api
-  name: Qase cases API
+  name: Qase Cases API
   description: Test cases stored in a project repository.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
@@ -88,7 +88,7 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 - aid: qase:qase-defects-api
-  name: Qase defects API
+  name: Qase Defects API
   description: Defects raised against failed test results.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
@@ -120,7 +120,7 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 - aid: qase:qase-plans-api
-  name: Qase plans API
+  name: Qase Plans API
   description: Test plans - reusable selections of test cases.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
@@ -152,7 +152,7 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 - aid: qase:qase-projects-api
-  name: Qase projects API
+  name: Qase Projects API
   description: Test projects that contain cases, suites, runs, and results.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
@@ -184,7 +184,7 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 - aid: qase:qase-results-api
-  name: Qase results API
+  name: Qase Results API
   description: Test run results, including bulk publishing from CI/automation.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
@@ -216,7 +216,7 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 - aid: qase:qase-runs-api
-  name: Qase runs API
+  name: Qase Runs API
   description: Test runs - executions of selected test cases in a project.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
@@ -248,7 +248,7 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 - aid: qase:qase-suites-api
-  name: Qase suites API
+  name: Qase Suites API
   description: Test suites that group and organize test cases.
   humanURL: https://developers.qase.io/reference/get-runs
   baseURL: https://api.qase.io/v1
