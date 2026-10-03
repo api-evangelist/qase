@@ -148,6 +148,20 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
     Limit:
       name: limit
       in: query
@@ -156,13 +170,6 @@ components:
         type: integer
         default: 10
         maximum: 100
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
     Code:
       name: code
       in: path
@@ -170,31 +177,26 @@ components:
       description: Code of the project, uppercase, 2-10 characters.
       schema:
         type: string
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
+  responses:
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    IdResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-    BaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
     Error:
       type: object
       properties:
@@ -226,13 +228,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Defect'
-    DefectResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Defect'
     Defect:
       type: object
       properties:
@@ -248,25 +243,30 @@ components:
           type: string
         milestone_id:
           type: integer
-  responses:
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+    DefectResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Defect'
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey

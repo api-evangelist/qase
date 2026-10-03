@@ -139,6 +139,20 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
     Limit:
       name: limit
       in: query
@@ -147,13 +161,6 @@ components:
         type: integer
         default: 10
         maximum: 100
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
     Code:
       name: code
       in: path
@@ -161,25 +168,7 @@ components:
       description: Code of the project, uppercase, 2-10 characters.
       schema:
         type: string
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
   schemas:
-    IdResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
     CaseListResponse:
       type: object
       properties:
@@ -211,6 +200,13 @@ components:
           items:
             type: object
             additionalProperties: true
+    Case:
+      allOf:
+      - $ref: '#/components/schemas/CaseCreate'
+      - type: object
+        properties:
+          id:
+            type: integer
     CaseCreate:
       type: object
       required:
@@ -244,34 +240,38 @@ components:
           type: boolean
         result:
           $ref: '#/components/schemas/Case'
-    Case:
-      allOf:
-      - $ref: '#/components/schemas/CaseCreate'
-      - type: object
-        properties:
-          id:
-            type: integer
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
   responses:
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: The request payload failed validation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
       content:
         application/json:
           schema:

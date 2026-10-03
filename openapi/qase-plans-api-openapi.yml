@@ -135,14 +135,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
-    Limit:
-      name: limit
-      in: query
-      description: A number of entities in result set. Default is 10, max is 100.
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
     Offset:
       name: offset
       in: query
@@ -157,6 +149,14 @@ components:
       description: Identifier of the entity.
       schema:
         type: integer
+    Limit:
+      name: limit
+      in: query
+      description: A number of entities in result set. Default is 10, max is 100.
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
     Code:
       name: code
       in: path
@@ -164,31 +164,46 @@ components:
       description: Code of the project, uppercase, 2-10 characters.
       schema:
         type: string
+  responses:
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    IdResponse:
+    PlanCreate:
       type: object
+      required:
+      - title
+      - cases
       properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
+        title:
           type: string
-        errorFields:
+        description:
+          type: string
+        cases:
           type: array
           items:
-            type: object
-            additionalProperties: true
+            type: integer
     Plan:
       type: object
       properties:
@@ -207,6 +222,19 @@ components:
           type: boolean
         result:
           $ref: '#/components/schemas/Plan'
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     PlanListResponse:
       type: object
       properties:
@@ -225,45 +253,17 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Plan'
-    PlanCreate:
+    IdResponse:
       type: object
-      required:
-      - title
-      - cases
       properties:
-        title:
-          type: string
-        description:
-          type: string
-        cases:
-          type: array
-          items:
-            type: integer
-  responses:
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey

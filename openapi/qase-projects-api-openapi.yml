@@ -107,6 +107,13 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
     Limit:
       name: limit
       in: query
@@ -115,13 +122,6 @@ components:
         type: integer
         default: 10
         maximum: 100
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
     Code:
       name: code
       in: path
@@ -129,7 +129,45 @@ components:
       description: Code of the project, uppercase, 2-10 characters.
       schema:
         type: string
+  responses:
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     CodeResponse:
       type: object
       properties:
@@ -141,6 +179,47 @@ components:
           properties:
             code:
               type: string
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+    ProjectResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Project'
+    Project:
+      type: object
+      properties:
+        title:
+          type: string
+        code:
+          type: string
+        counts:
+          type: object
+          additionalProperties: true
+    ProjectListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            filtered:
+              type: integer
+            count:
+              type: integer
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
     ProjectCreate:
       type: object
       required:
@@ -160,85 +239,6 @@ components:
           - all
           - group
           - none
-    BaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-    ProjectResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Project'
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    ProjectListResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          type: object
-          properties:
-            total:
-              type: integer
-            filtered:
-              type: integer
-            count:
-              type: integer
-            entities:
-              type: array
-              items:
-                $ref: '#/components/schemas/Project'
-    Project:
-      type: object
-      properties:
-        title:
-          type: string
-        code:
-          type: string
-        counts:
-          type: object
-          additionalProperties: true
-  responses:
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     TokenAuth:
       type: apiKey
