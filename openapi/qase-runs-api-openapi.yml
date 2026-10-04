@@ -217,13 +217,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
     Id:
       name: id
       in: path
@@ -231,6 +224,13 @@ components:
       description: Identifier of the entity.
       schema:
         type: integer
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
     Limit:
       name: limit
       in: query
@@ -259,59 +259,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized - missing or invalid API token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    RunListResponse:
+    BaseResponse:
       type: object
       properties:
         status:
           type: boolean
-        result:
-          type: object
-          properties:
-            total:
-              type: integer
-            filtered:
-              type: integer
-            count:
-              type: integer
-            entities:
-              type: array
-              items:
-                $ref: '#/components/schemas/Run'
-    Run:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        description:
-          type: string
-        status:
-          type: integer
-        status_text:
-          type: string
-        start_time:
-          type: string
-        end_time:
-          type: string
-        public:
-          type: boolean
-        stats:
-          type: object
-          additionalProperties: true
+          example: true
     Error:
       type: object
       properties:
@@ -325,12 +291,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    BaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
     RunCreate:
       type: object
       required:
@@ -353,20 +313,6 @@ components:
           type: integer
         is_autotest:
           type: boolean
-    RunUpdate:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-    RunResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Run'
     IdResponse:
       type: object
       properties:
@@ -378,6 +324,60 @@ components:
           properties:
             id:
               type: integer
+    RunListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            filtered:
+              type: integer
+            count:
+              type: integer
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Run'
+    RunUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+    Run:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: integer
+        status_text:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+        public:
+          type: boolean
+        stats:
+          type: object
+          additionalProperties: true
+    RunResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Run'
   securitySchemes:
     TokenAuth:
       type: apiKey

@@ -188,20 +188,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
-    Id:
-      name: id
-      in: path
-      required: true
-      description: Identifier of the entity.
-      schema:
-        type: integer
     Hash:
       name: hash
       in: path
@@ -209,6 +195,13 @@ components:
       description: Hash of the entity (used for test run results).
       schema:
         type: string
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
     Limit:
       name: limit
       in: query
@@ -217,6 +210,13 @@ components:
         type: integer
         default: 10
         maximum: 100
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the entity.
+      schema:
+        type: integer
     Code:
       name: code
       in: path
@@ -237,19 +237,38 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized - missing or invalid API token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     ResultListResponse:
       type: object
       properties:
@@ -268,68 +287,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Result'
-    ResultResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Result'
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    ResultBulkCreate:
-      type: object
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResultCreate'
-    BaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-    Result:
-      type: object
-      properties:
-        hash:
-          type: string
-        case_id:
-          type: integer
-        status:
-          type: string
-        time_ms:
-          type: integer
-          format: int64
-        comment:
-          type: string
-        run_id:
-          type: integer
-    HashResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            hash:
-              type: string
     ResultCreate:
       type: object
       required:
@@ -359,6 +316,49 @@ components:
           items:
             type: object
             additionalProperties: true
+    HashResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            hash:
+              type: string
+    ResultBulkCreate:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResultCreate'
+    Result:
+      type: object
+      properties:
+        hash:
+          type: string
+        case_id:
+          type: integer
+        status:
+          type: string
+        time_ms:
+          type: integer
+          format: int64
+        comment:
+          type: string
+        run_id:
+          type: integer
+    ResultResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Result'
   securitySchemes:
     TokenAuth:
       type: apiKey

@@ -106,6 +106,116 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    ProjectListResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          type: object
+          properties:
+            total:
+              type: integer
+            filtered:
+              type: integer
+            count:
+              type: integer
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
+    Project:
+      type: object
+      properties:
+        title:
+          type: string
+        code:
+          type: string
+        counts:
+          type: object
+          additionalProperties: true
+    ProjectCreate:
+      type: object
+      required:
+      - title
+      - code
+      properties:
+        title:
+          type: string
+        code:
+          type: string
+          description: Uppercase project code, 2-10 characters.
+        description:
+          type: string
+        access:
+          type: string
+          enum:
+          - all
+          - group
+          - none
+    ProjectResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Project'
+    CodeResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            code:
+              type: string
   parameters:
     Offset:
       name: offset
@@ -129,116 +239,6 @@ components:
       description: Code of the project, uppercase, 2-10 characters.
       schema:
         type: string
-  responses:
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    CodeResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            code:
-              type: string
-    BaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-    ProjectResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Project'
-    Project:
-      type: object
-      properties:
-        title:
-          type: string
-        code:
-          type: string
-        counts:
-          type: object
-          additionalProperties: true
-    ProjectListResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          type: object
-          properties:
-            total:
-              type: integer
-            filtered:
-              type: integer
-            count:
-              type: integer
-            entities:
-              type: array
-              items:
-                $ref: '#/components/schemas/Project'
-    ProjectCreate:
-      type: object
-      required:
-      - title
-      - code
-      properties:
-        title:
-          type: string
-        code:
-          type: string
-          description: Uppercase project code, 2-10 characters.
-        description:
-          type: string
-        access:
-          type: string
-          enum:
-          - all
-          - group
-          - none
   securitySchemes:
     TokenAuth:
       type: apiKey

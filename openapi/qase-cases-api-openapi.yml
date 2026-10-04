@@ -139,13 +139,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: How many entities should be skipped. Default is 0.
-      schema:
-        type: integer
-        default: 0
     Id:
       name: id
       in: path
@@ -153,6 +146,13 @@ components:
       description: Identifier of the entity.
       schema:
         type: integer
+    Offset:
+      name: offset
+      in: query
+      description: How many entities should be skipped. Default is 0.
+      schema:
+        type: integer
+        default: 0
     Limit:
       name: limit
       in: query
@@ -168,7 +168,63 @@ components:
       description: Code of the project, uppercase, 2-10 characters.
       schema:
         type: string
+  responses:
+    UnprocessableEntity:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too Many Requests - the rate limit has been exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing or invalid API token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        errorMessage:
+          type: string
+        errorFields:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    IdResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+    Case:
+      allOf:
+      - $ref: '#/components/schemas/CaseCreate'
+      - type: object
+        properties:
+          id:
+            type: integer
     CaseListResponse:
       type: object
       properties:
@@ -187,26 +243,13 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Case'
-    Error:
+    CaseResponse:
       type: object
       properties:
         status:
           type: boolean
-          example: false
-        errorMessage:
-          type: string
-        errorFields:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    Case:
-      allOf:
-      - $ref: '#/components/schemas/CaseCreate'
-      - type: object
-        properties:
-          id:
-            type: integer
+        result:
+          $ref: '#/components/schemas/Case'
     CaseCreate:
       type: object
       required:
@@ -233,49 +276,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    CaseResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Case'
-    IdResponse:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-  responses:
-    UnprocessableEntity:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too Many Requests - the rate limit has been exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - missing or invalid API token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     TokenAuth:
       type: apiKey
