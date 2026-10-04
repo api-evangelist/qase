@@ -1,0 +1,68 @@
+slug: qase
+provider: Qase
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Cases
+  spec_file: qase-cases-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.92
+  evidence: GET /case/{code} get-cases 'Get all test cases'; POST 'Create a new test case' on the Qase
+    test management platform
+  reason: Authoring and managing test cases is squarely test strategy/automated test suite stewardship
+    under Software Quality Engineering.
+- tag: Results
+  spec_file: qase-results-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.92
+  evidence: '''Get all test run results'', ''Bulk create test run results'''
+  reason: Publishing and querying automated test results is core Software Quality Engineering.
+- tag: Runs
+  spec_file: qase-runs-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.92
+  evidence: '''Create a new test run'', ''Complete a specific test run'''
+  reason: Launching and completing test runs is test execution within Software Quality Engineering.
+- tag: Suites
+  spec_file: qase-suites-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.9
+  evidence: '''Get all test suites'', ''Create a new test suite'''
+  reason: Test suite organisation is explicitly automated test suite stewardship under Software Quality
+    Engineering.
+- tag: Defects
+  spec_file: qase-defects-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.88
+  evidence: '''Get all defects'', ''Resolve a specific defect'', ''Update a defect status'''
+  reason: Defect management is explicitly part of Software Quality Engineering (test strategy, test suite
+    stewardship, and defect management).
+- tag: Plans
+  spec_file: qase-plans-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.88
+  evidence: '''Get all test plans'', ''Create a new test plan'''
+  reason: Test plan lifecycle is test strategy/suite stewardship within Software Quality Engineering,
+    not generic project planning.

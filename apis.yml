@@ -280,6 +280,9 @@ apis:
   - type: APIReference
     url: https://developers.qase.io/reference/get-plans
 common:
+- type: CapabilityMap
+  url: capabilities/qase-capability-edges.yml
+  name: Qase Business Capability Map
 - type: IssueTracker
   url: https://github.com/qase-tms/specs/issues
 - type: CodeOfConduct
