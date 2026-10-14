@@ -1,0 +1,45 @@
+generated: '2026-10-14'
+method: searched
+checked:
+- https://github.com/marketplace?type=apps
+- https://marketplace.atlassian.com/
+marketplace_apps: []
+edges:
+- partner_name: GitHub Marketplace (apps)
+  partner: github
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-apps
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/qase-testops
+  listing_count: 1
+  apps:
+  - Qase TestOps
+  publisher_name: Qase TMS
+  badges:
+  - Verified creator
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Atlassian Marketplace
+  partner: atlassian
+  partner_match: aggregator
+  type: marketplace
+  marketplace: atlassian
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.atlassian.com/vendors/1218071/qase
+  listing_count: 3
+  apps:
+  - Qase for Jira Test Management
+  - Qase for Confluence
+  - Qase for Bitbucket
+  publisher_name: Qase
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+source:
+- https://github.com/marketplace?type=apps
+- https://marketplace.atlassian.com/
