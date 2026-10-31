@@ -1,4 +1,4 @@
-# Qase (qase)
+# Qase
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,198 +64,129 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Qase is a cloud test management platform (TestOps) for QA and engineering teams to author test cases, organize them into suites and plans, launch and complete test runs, publish automated results from CI pipelines, and track defects. The **Qase TestOps API v1** is a token-authenticated REST API at `https://api.qase.io/v1` covering Projects, Test Cases, Suites, Test Runs, Test Results, Defects, and Plans. Qase publishes a machine-readable OpenAPI source specification on GitHub ([qase-tms/specs](https://github.com/qase-tms/specs)) and pre-generated clients for PHP, Python, JavaScript/TypeScript, Java, and Go. A newer **v2** API is also published.
+Qase is a cloud test management platform (TestOps) for QA and engineering teams to author test cases, organize them into suites and plans, launch and complete test runs, publish automated results from CI pipelines, and track defects. The Qase TestOps API v1 is a token-authenticated REST API at https://api.qase.io/v1 covering Projects, Test Cases, Suites, Test Runs, Test Results, Defects, and Plans, with a machine-readable OpenAPI specification published on GitHub (qase-tms/specs) and pre-generated clients for PHP, Python, JavaScript/TypeScript, Java, and Go. Automation reporters use the bulk results endpoint to publish test run results directly from CI.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/qase/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/qase/refs/heads/main/apis.yml)
+**Areas:** Test Runs · Test Management · Test Cases · QA · Testing · TestOps · Test Results · Defects · Quality Assurance · Test Automation
 
-## Access Model
+## Qase on APIs.io
 
-- **Public, documented REST API.** Full reference at [developers.qase.io](https://developers.qase.io); base URL `https://api.qase.io/v1`.
-- **Authentication:** an API token (personal or application) passed in the `Token` header on every request over HTTPS. Access is further constrained by the user's role-based permissions.
-- **Availability:** the API is included on **every** plan, including the free tier. The Free plan caps API-published results at 25,000 per month; higher tiers raise or remove that cap.
-- **Rate limits:** 1,000 requests/minute per user (token) and 3,000 requests/minute per IP; HTTP 429 on exceed.
-- **No public WebSocket API.** Qase's own surface is request/response REST plus outbound webhooks. See `review.yml`.
-- **Not open source (the platform),** but the API spec, clients, and framework reporters are open on GitHub under [qase-tms](https://github.com/qase-tms).
+Everything profiled for Qase is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/qase/](https://apis.io/providers/qase/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-- Test Runs
-- Test Management
-- Test Cases
-- QA
-- Testing
-- TestOps
-- Test Results
-- Defects
-- Quality Assurance
-- Test Automation
+- [Qase Cases API](https://apis.io/apis/qase/qase-cases-api/) — Test cases stored in a project repository.
+- [Qase Defects API](https://apis.io/apis/qase/qase-defects-api/) — Defects raised against failed test results.
+- [Qase Plans API](https://apis.io/apis/qase/qase-plans-api/) — Test plans - reusable selections of test cases.
+- [Qase Projects API](https://apis.io/apis/qase/qase-projects-api/) — Test projects that contain cases, suites, runs, and results.
+- [Qase Results API](https://apis.io/apis/qase/qase-results-api/) — Test run results, including bulk publishing from CI/automation.
+- [Qase Runs API](https://apis.io/apis/qase/qase-runs-api/) — Test runs - executions of selected test cases in a project.
+- [Qase Suites API](https://apis.io/apis/qase/qase-suites-api/) — Test suites that group and organize test cases.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Qase Test Runs API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Create, list, retrieve, update, delete, and complete test runs in a project, and toggle a public shareable report link. A test run is an execution of a selected set of test cases; filter runs by status (in_progress, passed, failed, aborted), milestone, environment, and start-time window. Endpoints are scoped by project code at `/run/{code}` and `/run/{code}/{id}`.
+- [Qase Agentic Access](https://apis.io/agentic-access/qase/qase-agentic-access/)
 
-- **Human URL:** [https://developers.qase.io/reference/get-runs](https://developers.qase.io/reference/get-runs)
-- **Base URL:** `https://api.qase.io/v1`
+#### Collections (8)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Test Runs
-- Runs
-- Test Execution
-- QA
+- [Qase TestOps API v1](https://apis.io/collections/qase/open-qase/)
+- [Qase TestOps API v1 cases API](https://apis.io/collections/qase/open-qase-cases-api/)
+- [Qase TestOps API v1 cases defects API](https://apis.io/collections/qase/open-qase-defects-api/)
+- [Qase TestOps API v1 cases plans API](https://apis.io/collections/qase/open-qase-plans-api/)
+- [Qase TestOps API v1 cases projects API](https://apis.io/collections/qase/open-qase-projects-api/)
+- [Qase TestOps API v1 cases results API](https://apis.io/collections/qase/open-qase-results-api/)
+- [Qase TestOps API v1 cases runs API](https://apis.io/collections/qase/open-qase-runs-api/)
+- [Qase TestOps API v1 cases suites API](https://apis.io/collections/qase/open-qase-suites-api/)
 
-#### Properties
+#### Security (1)
 
-- [API Reference](https://developers.qase.io/reference/get-runs)
-- [Documentation](https://developers.qase.io/docs/getting-started)
-- [OpenAPI](openapi/qase-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/qase.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/qase.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Qase Test Results API
+- [Qase Authentication](https://apis.io/security/qase/qase-authentication/)
 
-Publish and manage test run results - the pass/fail/blocked/skipped outcome of each executed case. Create a single result for a run, bulk-create many results in one request (the endpoint automation reporters use to push CI results), list results across runs, and get, update, or delete a result by run id and hash at `/result/{code}`.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://developers.qase.io/reference/create-result](https://developers.qase.io/reference/create-result)
-- **Base URL:** `https://api.qase.io/v1`
+Published plans, tiers and prices.
 
-#### Tags
+- [Qase Plans Pricing](https://apis.io/plans/qase/qase-plans-pricing/)
 
-- Test Results
-- Results
-- CI
-- Test Automation
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [API Reference](https://developers.qase.io/reference/create-result)
-- [OpenAPI](openapi/qase-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/qase.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/qase.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Qase Rate Limits](https://apis.io/rate-limits/qase/qase-rate-limits/)
 
-### Qase Test Cases API
+#### FinOps (1)
 
-Manage the test case repository - create, list, get, update, and delete test cases with titles, steps, preconditions, severity, priority, type, and suite assignment. Endpoints are scoped by project code at `/case/{code}` and `/case/{code}/{id}`.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://developers.qase.io/reference/get-cases](https://developers.qase.io/reference/get-cases)
-- **Base URL:** `https://api.qase.io/v1`
+- [Qase Finops](https://apis.io/finops/qase/qase-finops/)
 
-#### Tags
+## Where to find this API
 
-- Test Cases
-- Cases
-- Repository
-- QA
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [API Reference](https://developers.qase.io/reference/get-cases)
-- [OpenAPI](openapi/qase-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/qase.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/qase.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Qase Test Suites API
-
-Organize test cases into hierarchical suites. Create, list, get, update, and delete test suites, including nesting via a parent suite, at `/suite/{code}` and `/suite/{code}/{id}`.
-
-- **Human URL:** [https://developers.qase.io/reference/get-suites](https://developers.qase.io/reference/get-suites)
-- **Base URL:** `https://api.qase.io/v1`
-
-#### Tags
-
-- Test Suites
-- Suites
-- Organization
-
-#### Properties
-
-- [API Reference](https://developers.qase.io/reference/get-suites)
-- [OpenAPI](openapi/qase-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/qase.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/qase.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Qase Projects API
-
-Create, list, retrieve, and delete projects - the top-level containers, identified by a 2-10 character code, that hold cases, suites, runs, results, plans, and defects. Endpoints live at `/project` and `/project/{code}`.
-
-- **Human URL:** [https://developers.qase.io/reference/get-projects](https://developers.qase.io/reference/get-projects)
-- **Base URL:** `https://api.qase.io/v1`
-
-#### Tags
-
-- Projects
-- Workspaces
-- Administration
-
-#### Properties
-
-- [API Reference](https://developers.qase.io/reference/get-projects)
-- [OpenAPI](openapi/qase-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/qase.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/qase.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Qase Defects API
-
-Track defects raised against failed test results. List and filter defects by status, get a defect, delete it, mark it resolved, and update its status at `/defect/{code}` and related paths.
-
-- **Human URL:** [https://developers.qase.io/reference/get-defects](https://developers.qase.io/reference/get-defects)
-- **Base URL:** `https://api.qase.io/v1`
-
-#### Tags
-
-- Defects
-- Bugs
-- Issue Tracking
-- QA
-
-#### Properties
-
-- [API Reference](https://developers.qase.io/reference/get-defects)
-- [OpenAPI](openapi/qase-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/qase.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/qase.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Qase Test Plans API
-
-Create, list, get, update, and delete test plans - reusable selections of test cases that can be launched as a test run. Endpoints live at `/plan/{code}` and `/plan/{code}/{id}`.
-
-- **Human URL:** [https://developers.qase.io/reference/get-plans](https://developers.qase.io/reference/get-plans)
-- **Base URL:** `https://api.qase.io/v1`
-
-#### Tags
-
-- Test Plans
-- Plans
-- Test Selection
-
-#### Properties
-
-- [API Reference](https://developers.qase.io/reference/get-plans)
-- [OpenAPI](openapi/qase-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/qase.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/qase.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Authentication](authentication/qase-authentication.yml)
-- [GitHub Organization](https://github.com/qase-tms)
-- [LinkedIn](https://www.linkedin.com/company/qaseio)
 - [Website](https://qase.io)
 - [Documentation](https://developers.qase.io)
-- [Plans](plans/qase-plans-pricing.yml)
-- [Rate Limits](rate-limits/qase-rate-limits.yml)
-- [Fin Ops](finops/qase-finops.yml)
-- [Source Code](https://github.com/qase-tms/specs)
 - [Blog](https://qase.io/blog/)
+- [GitHub](https://github.com/qase-tms)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 24.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 52.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/qase/](https://apis.io/providers/qase/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Qase: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/qase/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
